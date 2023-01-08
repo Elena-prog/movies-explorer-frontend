@@ -1,0 +1,26 @@
+.account{
+    display: flex;
+    gap: 17px;
+    align-items:center;
+    text-decoration: none;
+}
+
+.account__link{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FFFFFF;
+    
+}
+
+.account__logo{
+    background-image: url('../../images/account.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #313131;
+    height: 30px;
+    width: 26px;
+    border-radius: 4px;
+}

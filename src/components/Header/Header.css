@@ -1,0 +1,39 @@
+.header {
+    width: 100%;
+    height: 74px;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items:center
+}
+
+.header_theme_blue {
+    background-color:#073042;
+}
+
+.header_theme_dark {
+    background-color:#202020;
+}
+
+.header__container {
+
+}
+
+.header__container_position_left {
+    justify-self: start;
+}
+
+.header__container_position_center {
+    justify-self: center;
+}
+
+.header__container_position_right {
+    justify-self: end;
+}
+
+.header_type_register{
+    padding: 0 442px;
+    height: 148px;
+}

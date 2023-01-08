@@ -1,0 +1,19 @@
+.navigation{
+    display: flex;
+    gap: 16px;
+}
+
+.navigation__link{
+    text-decoration: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #FFFFFF;
+    /* margin-right: 16px; */
+}
+
+.navigation__link_active{
+    font-weight: 500;
+}
