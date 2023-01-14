@@ -5,8 +5,9 @@
     box-sizing: border-box;
     padding: 0 70px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    align-items:center
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    align-items:center;
+    position: relative;
 }
 
 .header_theme_blue {
@@ -15,10 +16,6 @@
 
 .header_theme_dark {
     background-color:#202020;
-}
-
-.header__container {
-
 }
 
 .header__container_position_left {
@@ -34,6 +31,34 @@
 }
 
 .header_type_register{
-    padding: 0 442px;
-    height: 148px;
+    width: 100%;
+    max-width: 396px;
+    margin: 0 auto;
+    height: 108px;
+    padding: 0;
+    align-items: end;
+    margin-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .header__container_position_center{
+        display: none;
+    }
+
+    .header__container_position_right {
+        display: none;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+}
+
+@media screen and (max-width: 450px) {
+    .header_type_register{
+        max-width: calc(100% - 30px*2);
+    }
+    
 }

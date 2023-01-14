@@ -1,4 +1,4 @@
-.account{
+.account__container{
     display: flex;
     gap: 17px;
     align-items:center;
@@ -24,3 +24,15 @@
     width: 26px;
     border-radius: 4px;
 }
+
+/* 
+@media screen and (max-width: 768px) {
+    .account__container{
+        display: none;
+    }
+    .account{
+        background-image: url('../../images/burger-menu.svg');
+        width: 44px;
+        height: 44px;
+    }
+} */

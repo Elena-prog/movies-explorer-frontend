@@ -1,57 +1,50 @@
 import React from "react";
 import './Profile.css';
+import Form from "../Form/Form";
+import Input from "../Input/Input";
 
 export default function Profile(){
-    const name = 'Elena';
-    const email = 'elena@mail.ru';
+    const [values, setValues] = React.useState({name:"", email:""});
+
+    function handleChange(e) {
+        const {name, value} = e.target;
+        setValues((prev)=>({
+            ...prev,
+            [name]: value
+        }))
+    }
 
     return(
         <section className="profile">
-            <h2 className="profile__title">Привет, {name}!</h2>
-            <form className="profile__form">
-                <div className="profile__form-container">
-                    <div className="profile__input-container">
-                        <label 
-                            for="name" 
-                            className="profile__label">
-                            Имя
-                        </label>
-                        <input
-                            name="name"
-                            id="name"
-                            type="text"
-                            className="profile__input profile__input_type_name"
-                            required
-                            placeholder="Имя"
-                            minLength="2"
-                            maxLength="40"
-                            value={name}
-                        />
-                    </div>
-
-                    <div className="profile__input-container">
-                        <label 
-                            for="email" 
-                            className="profile__label">
-                            E-mail
-                        </label>
-                        <input
-                            name="email"
-                            id="email"
-                            type="email"
-                            className="profile__input profile__input_type_email"
-                            required
-                            placeholder="email"
-                            minLength="2"
-                            maxLength="40"
-                            value={email}
-                        />
-                    </div>
-                </div>
-
-                <button className="profile__btn profile__btn_type_edit">Редактировать</button>
-                <button className="profile__btn profile__btn_type_signout">Выйти из аккаунта</button>
-            </form>
+            <Form
+                title= {`Привет, ${values.name}`}
+                submit="Редактировать"
+                formButton="Выйти из аккаунта"
+                formType="profile"
+            >
+                <Input
+                    name="name"
+                    id="name"
+                    type="text"
+                    value={values.name}
+                    label="Имя"
+                    inputType="profile"
+                    placeholder="Имя"
+                    onChange={handleChange}
+                    errorMessage="Имя должно содержать от 2 до 30 символов"
+                />
+                <Input
+                    name="email"
+                    id="email"
+                    type="email"
+                    value={values.email}
+                    label="E-mail"
+                    inputType="profile"
+                    placeholder="E-mail"
+                    onChange={handleChange}
+                    errorMessage="Невалидный email"
+                />
+            </Form>
         </section>
     )
 }

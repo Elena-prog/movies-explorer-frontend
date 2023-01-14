@@ -1,19 +1,19 @@
 import React from "react";
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
-import Preloader from '../Preloader/Preloader';
+// import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-export default function Movies(){
+export default function Movies({ movies }){
+
     return(
         <div className="movies">
             <SearchForm/>
-            <div className="movies__short-movies-container">
-                <button className="movies__short-movies-btn"></button>
-                <p className="movies__short-movies-lable">Короткометражки</p>
+            <div className="movies__container">
+                <FilterCheckbox/>
             </div>
-            <MoviesCardList/>
-            <button className="movies__more-btn">Ещё</button>
+            <MoviesCardList movies={movies}/>
         </div>
     )
 }

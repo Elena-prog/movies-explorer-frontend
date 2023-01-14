@@ -4,12 +4,23 @@ import Form from "../Form/Form";
 import Input from "../Input/Input";
 
 export default function Login(){
+    const [values, setValues] = React.useState({email:"", password:""});
+
+    function handleChange(e) {
+        const {name, value} = e.target;
+        setValues((prev)=>({
+            ...prev,
+            [name]: value
+        }))
+    }
+
     return(
         <Form
             title="Рады видеть!"
             submit="Войти"
             questionMessage="Ещё не зарегистрированы?"
             formButton="Регистрация"
+            formType="register"
 
         >
             <Input
@@ -18,7 +29,9 @@ export default function Login(){
                 type="email"
                 value="elena@mail.ru"
                 label="E-mail"
+                inputType="register"
                 errorMessage="Невалидный email"
+                onChange={handleChange}
             /> 
             <Input
                 name="password"
@@ -26,7 +39,9 @@ export default function Login(){
                 type="password"
                 value="123456"
                 label="password"
+                inputType="register"
                 errorMessage="Неверный пароль"
+                onChange={handleChange}
             /> 
         </Form>
     )
