@@ -1,5 +1,5 @@
 import React from "react";
-import './Portfolio.css'
+import "./Portfolio.css";
 
 export default function Portfolio(){
     return(
@@ -8,15 +8,15 @@ export default function Portfolio(){
             <ul className="portfolio__items">
                 <li className="portfolio__item">
                     <p className="portfolio__link-title">Статичный сайт</p>
-                    <button className="portfolio__link-btn"></button>
+                    <a href="https://github.com/Elena-prog/how-to-learn" rel="noreferrer" target="_blank" className="portfolio__link"><div className="portfolio__link-image"></div></a>
                 </li>
                 <li className="portfolio__item">
                     <p className="portfolio__link-title">Адаптивный сайт</p>
-                    <button className="portfolio__link-btn"></button>
+                    <a href="https://github.com/Elena-prog/russian-travel-project" rel="noreferrer" target="_blank" className="portfolio__link"><div className="portfolio__link-image"></div></a>
                 </li>
                 <li className="portfolio__item">
                     <p className="portfolio__link-title">Одностраничное приложение</p>
-                    <button className="portfolio__link-btn"></button>
+                    <a href="https://github.com/Elena-prog/react-mesto-api-full" target="_blank" rel="noreferrer" className="portfolio__link"><div className="portfolio__link-image"></div></a>
                 </li>
             </ul>
         </section>

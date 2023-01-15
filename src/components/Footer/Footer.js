@@ -1,18 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import './Footer.css';
-import Github from "../Github/Github";
+import "./Footer.css";
 
-export default function Footer({ props }) {
+export default function Footer() {
     return(
         <footer className="footer">
             <p className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</p>
             <div className="footer__container">
-                <p className="footer__copywright">&copy;2022</p>
-                <div className="foo">
-                    <Link to='/' className="footer__link">Яндекс.Практикум</Link>
-                    <Github/>
-                </div>
+                <p className="footer__copyright">&copy;2023</p>
+                <ul className="footer__links"> 
+                    <li><a href="https://practicum.yandex.ru/" target="_blank" rel="noreferrer" className="footer__link">Яндекс.Практикум</a></li>
+                    <li><a href="https://github.com/Elena-prog" target="_blank" rel="noreferrer" className="footer__link">Github</a></li>
+                </ul>
             </div>
         </footer>
     )

@@ -10,25 +10,36 @@
     background-size: 320px 320px;
     background-repeat: no-repeat;
     background-position: center;
-
 }
 
 .promo__title{
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 50px;
-    line-height: 58px;
+    line-height: 1.16;
     text-align: center;
     letter-spacing: -0.04em;
     color: #FFFFFF;
     max-width: 730px;
+    margin: 0;
 }
 
-/* .promo__image{
-   
-    background-size: 320px 320px;
-    
-    height: 320px;
-    width: 320px;
-} */
+@media screen and (max-width: 800px) {
+    .promo {
+        height: 768px;
+    }
+    .promo__title{
+        max-width: calc(100% - 30px*2)
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .promo {
+        height: 570px;
+        background-size: 248px 248px;
+    }
+    .promo__title{
+        font-size: 31px;
+        line-height: 1.26;
+        max-width: 300px;
+    }
+}

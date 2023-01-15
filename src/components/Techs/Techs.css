@@ -5,32 +5,28 @@
 }
 
 .tech__container{
-    border-top: solid 1px #DADADA;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding-top: 90px;
+    margin-top: 90px;
 }
 
 .tech__title{
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 50px;
-    line-height: 58px;
+    line-height: 1.16;
     color: #FFFFFF;
+    letter-spacing: -0.04em;
     margin: 0;
 }
 
 .tech__subtitle{
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    line-height: 20px;
+    line-height: 1.43;
+    letter-spacing: -0.04em;
     color: #FFFFFF;
-    margin: 0;
+    margin: 26px 0 100px;
     max-width: 460px;
     text-align: center;
 }
@@ -42,8 +38,9 @@
     display: flex;
     gap: 10px;
     align-items:center;
+    justify-content: space-between;
     justify-content: center;
-    margin-top: 100px;
+    flex-wrap: wrap;
 }
 
 .tech__item{
@@ -51,15 +48,76 @@
     height: 60px;
     background-color: #303030;
     border-radius: 10px;
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 1.21;
+    letter-spacing: -0.04em;
     color: #FFFFFF;
     margin: 0;
     display: flex;
     align-items:center;
     justify-content: center;
-    /* align-self: center; */
+}
+
+
+@media screen and (max-width: 850px) {
+    .tech{
+        background-color:#202020;
+        padding: 90px 50px;
+    }
+
+    .tech__container{
+        margin-top: 80px;
+    }
+
+    .tech__subtitle{
+        font-size: 12px;
+        line-height: 1.5;
+        margin: 22px 0 83px;
+    }
+
+    .tech__items{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 10px;
+        align-items:center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .tech__item{
+        width: 84px;
+        height: 57px;
+        font-size: 12px;
+        line-height: 1.25;
+    }  
+}
+
+@media screen and (max-width: 450px) {
+    .tech{
+        padding: 70px 18px;
+    }
+
+    .tech__container{
+        margin-top: 60px;
+    }
+    
+    .tech__title{
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .tech__items{
+        max-width: 178px;
+        justify-content: start;
+    }
+
+    .tech__subtitle{
+        font-size: 11px;
+        line-height: 1.45;
+        margin: 24px 0 50px;
+        max-width: calc(100% - 30px*2)
+    }
 }

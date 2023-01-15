@@ -4,19 +4,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 40px;
 }
 
 .nav-tab__link{
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 500;
     font-size: 13px;
-    line-height: 16px;
+    line-height: 1.23;
     text-decoration: underline;
     color: #FFFFFF;
-    margin-right: 40px;
 }
 
-.nav-tab__link:last-child{
-    margin-left: 0;
+@media screen and (max-width: 450px) {
+    .nav-tab{
+        gap: 24px;
+    }
+    .nav-tab__link{
+        font-size: 11px;
+        line-height: 1.45;
+    }
 }

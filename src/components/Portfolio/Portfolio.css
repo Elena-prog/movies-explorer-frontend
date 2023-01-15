@@ -1,14 +1,12 @@
 .portfolio{
     box-sizing:border-box;
-    padding: 100px 70px 125px;
+    padding: 0 70px 125px;
 }
 
 .portfolio__title{
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    line-height: 20px;
+    line-height: 1.11;
     color: #8B8B8B;
     margin: 0;
     margin-bottom: 50px;
@@ -25,24 +23,65 @@
     display: flex;
     justify-content: space-between;
     padding: 20px 0;
+}
 
+.portfolio__item:last-child{
+    border: 0;
 }
 
 .portfolio__link-title{
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 400;
     font-size: 30px;
-    line-height: 50px;    
+    line-height: 1.66;
+    letter-spacing: -0.04em;  
     color: #FFFFFF;
     margin: 0;
 }
 
-.portfolio__link-btn{
+.portfolio__link{
+    display: inline-block;
+    text-decoration: none;
+}
+
+.portfolio__link-image{
     background-image: url('../../images/portfolio-link.svg');
     background-repeat: no-repeat;
     background-position: center;
     width: 29px;
+    height: 60px;
     background-color:transparent;
     border: none;
+}
+
+@media screen and (max-width: 850px) {
+    .portfolio{
+        padding: 0 50px 90px;
+    }
+
+    .portfolio__link-title{
+        font-size: 28px;
+        line-height: 1.78;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .portfolio{
+        padding: 0 14px 70px;
+    }
+
+    .portfolio__title{
+        font-size: 14px;
+        line-height: 1.43;
+        margin-bottom: 40px;
+    }
+
+    .portfolio__link-title{
+        font-size: 18px;
+        line-height: 1.55;
+    }
+
+    .portfolio__link-image{
+        width: 18px;
+    }
+    
 }
