@@ -1,7 +1,6 @@
 import React from "react";
 import "./AboutMe.css";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import Github from "../Github/Github";
 import student from "../../images/student.jpg";
 
 export default function AboutMe(){
