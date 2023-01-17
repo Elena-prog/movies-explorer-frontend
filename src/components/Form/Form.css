@@ -1,41 +1,28 @@
 .form{
     width: 100%;
     margin: 0 auto;
-    flex: 1;
     display: flex;
     flex-direction: column;
 }
-
-.form_type_register{
-    max-width: 396px;
-}
-
-.form_type_profile{
-    max-width: 410px;
-}
-
 .form__title{
     margin: 0;
     font-weight: 500;
     font-size: 24px;
-    line-height: 29px;
+    line-height: 1.2;
     color: #FFFFFF;
 }
 
-.form__title_type_profile{
-    text-align: center;
-}
-
-.form__input-container_type_register{
+.form__input-container{
+    list-style: none;
+    margin: 0;
+    padding: 0;
     height: 266px;
     margin: 40px 0 69px;
 }
 
-.form__input-container_type_profile{
-    margin: 123px 0 229px;
-}
-
 .form__button-container{
+    font-size: 14px;
+    line-height: 1.21;
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -47,22 +34,10 @@
     border: none;
     padding: 0;
     width: 100%;
-}
-
-.form__submit-button_type_register{
     font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
     background-color:#4285F4;
     height: 45px;
     border-radius:3px;
-}
-
-.form__submit-button_type_profile{
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    background-color:transparent;
 }
 
 .form__option{
@@ -73,8 +48,6 @@
 
 .form__question{
     font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
     color: #8B8B8B;
 }
 
@@ -84,35 +57,18 @@
     padding: 0;
     background-color: transparent;
     cursor: pointer;
-}
-
-.form__option-button_type_register{
     font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
     color: #4285F4;
 }
 
-.form__option-button_type_profile{
-    width: 100%;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 16px;
-    color: #EE3465;
-}
-
 @media screen and (max-width: 450px) {
-    .form{
-        max-width: calc(100% - 30px*2);
-    }
-
     .form__input-container{
         flex: 1;
     }
 
     .form__button-container{
         font-size: 12px;
-        line-height: 15px;
+        line-height: 1.25;
         margin-bottom: 30px;
     }
 }

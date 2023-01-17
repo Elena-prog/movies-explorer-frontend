@@ -1,7 +1,5 @@
 import React from "react";
 import './Profile.css';
-import Form from "../Form/Form";
-import Input from "../Input/Input";
 
 export default function Profile(){
     const [values, setValues] = React.useState({name:"", email:""});
@@ -16,35 +14,57 @@ export default function Profile(){
 
     return(
         <section className="profile">
-            <Form
-                title= {`Привет, ${values.name}`}
-                submit="Редактировать"
-                formButton="Выйти из аккаунта"
-                formType="profile"
-            >
-                <Input
-                    name="name"
-                    id="name"
-                    type="text"
-                    value={values.name}
-                    label="Имя"
-                    inputType="profile"
-                    placeholder="Имя"
-                    onChange={handleChange}
-                    errorMessage="Имя должно содержать от 2 до 30 символов"
-                />
-                <Input
-                    name="email"
-                    id="email"
-                    type="email"
-                    value={values.email}
-                    label="E-mail"
-                    inputType="profile"
-                    placeholder="E-mail"
-                    onChange={handleChange}
-                    errorMessage="Невалидный email"
-                />
-            </Form>
+            <form className="profile__form">
+                <h3 className="profile__title">{`Привет, ${values.name}`}</h3>
+                <ul className="profile__input-items">
+                    <li className="profile__input-item">
+                        <div className="profile__input-container">
+                            <label
+                                className="profile__label"
+                                htmlFor="name">
+                                Имя
+                            </label>
+                            <input
+                                className="profile__input"
+                                name="name"
+                                id="name"
+                                type="text"
+                                value={values.name}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <span 
+                            className="profile__error">
+                            Имя должно содержать от 2 до 30 символов
+                        </span>
+                    </li>
+                    <li className="profile__input-item">
+                        <div className="profile__input-container">
+                            <label
+                                className="profile__label"
+                                htmlFor="email">
+                                E-mail
+                            </label>
+                            <input
+                                className="profile__input"
+                                name="email"
+                                id="email"
+                                type="email"
+                                value={values.email}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <span 
+                            className="profile__error">
+                            Невалидный email
+                        </span>
+                    </li>
+                </ul>
+                <div className="profile__button-container">
+                    <button type="submit" className="profile__submit-button">Редактировать</button>
+                    <button type="button" className="profile__option-button">Выйти из аккаунта</button>
+                </div>
+            </form>
         </section>
     )
 }

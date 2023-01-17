@@ -28,7 +28,7 @@
 .header_page_register{
     max-width: 396px;
     margin: 0 auto;
-    padding: 70px 0 40px;
+    padding: 0 0 40px;
 }
 
 .header__container_position_center {
@@ -77,11 +77,7 @@
     .header_page_unauthorized{
         padding: 18px 30px;
     }
-
-    .header_page_register{
-        padding: 232px 0 40px;
-    }
-
+    
     .header__container_position_center{
         display: none;
     }

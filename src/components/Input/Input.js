@@ -1,27 +1,27 @@
 import React from "react";
 import './Input.css';
 
-export default function Input({ label, name, id, type, value, errorMessage, inputType, onChange, placeholder }){
+export default function Input({ id, label, name, type, value,placeholder, onChange, errorMessage }){
     return(
-        <section className={`input input_type_${inputType}`}>
+        <li className="input">
             <label 
                 htmlFor={id} 
-                className={`input__label input__label_type_${inputType}`}>
+                className="input__label">
                 {label}
             </label>
             <input
                 name={name}
                 id={id}
                 type={type}
-                className={`input__field input__field_type_${inputType}`}
+                className="input__field"
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
             />
             <span 
-                className={`input__error input__error_type_${inputType}`}>
+                className="input__error">
                 {errorMessage}
             </span>
-        </section>
+        </li>
     )
 }

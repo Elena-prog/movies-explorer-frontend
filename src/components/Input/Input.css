@@ -1,92 +1,45 @@
 .input{
     width: 100%;
-}
-
-.input_type_register{
     display: flex;
     flex-direction: column;
 }
 
-.input_type_profile{
-    border-bottom: 1px solid #424242;
-    box-sizing: border-box;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-areas: 
-    "label input"
-    " . error";
-}
-
-.input_type_profile:last-of-type{
-    border: none;
-    padding-top: 16px;
-}
-
-.input__label_type_register{ 
+.input__label{ 
     font-weight: 400;
     font-size: 10px;
-    line-height: 12px;
+    line-height: 1.2;
     color: #8B8B8B;
 }
 
-.input__label_type_profile{
-    font-weight: 500;
-    font-size: 11px;
-    line-height: 13px;
-    color: #FFFFFF;
-    white-space: nowrap;
-    grid-area: label;
-}
-
 .input__field{
-    font-weight: 400;
-    color: #FFFFFF;
     width: 100%;
     outline: none;
     box-sizing: border-box;
-}
-
-.input__field_type_register{
     -webkit-box-shadow: inset 0 0 0 50px #2F2F2F;
     -webkit-text-fill-color: #FFFFFF;
+    font-weight: 400;
     font-size: 13px;
-    line-height: 16px;
+    line-height: 1.23;
+    color: #FFFFFF;
     background-color: #2F2F2F;
     border-radius: 8px;
     border: none;
     height: 46px;
     margin: 10px 0;
-    padding: 0 15px;
-}
-
-.input__field_type_profile{
-    -webkit-box-shadow: inset 0 0 0 50px #202020;
-    -webkit-text-fill-color: #FFFFFF;
-    border: none;
-    overflow: hidden;
-    font-size: 11px;
-    line-height: 13px;
-    text-align: right;
-    grid-area: input;
+    padding: 15px;
 }
 
 .input__field::placeholder{
     color: #8B8B8B;
 }
 
-
 .input__error{
     font-weight: 400;
     font-size: 10px;
-    line-height: 12px;
+    line-height: 1.2;
     color: #EE3465;
     width: 100%;
     visibility: hidden;
-}
-
-.input__error_type_profile{
-    grid-area: error;
-    text-align: end;
 }
 
 .input__error_visible{

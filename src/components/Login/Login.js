@@ -15,34 +15,33 @@ export default function Login(){
     }
 
     return(
-        <Form
-            title="Рады видеть!"
-            submit="Войти"
-            questionMessage="Ещё не зарегистрированы?"
-            formButton="Регистрация"
-            formType="register"
+        <section className="login">
+            <Form
+                title="Рады видеть!"
+                submitButton="Войти"
+                questionMessage="Ещё не зарегистрированы?"
+                optionButton="Регистрация"
 
-        >
-            <Input
-                name="email"
-                id="email"
-                type="email"
-                value="elena@mail.ru"
-                label="E-mail"
-                inputType="register"
-                errorMessage="Невалидный email"
-                onChange={handleChange}
-            /> 
-            <Input
-                name="password"
-                id="password"
-                type="password"
-                value="123456"
-                label="password"
-                inputType="register"
-                errorMessage="Неверный пароль"
-                onChange={handleChange}
-            /> 
-        </Form>
+            >
+                <Input
+                    name="email"
+                    id="email"
+                    type="email"
+                    value="elena@mail.ru"
+                    label="E-mail"
+                    errorMessage="Невалидный email"
+                    onChange={handleChange}
+                /> 
+                <Input
+                    name="password"
+                    id="password"
+                    type="password"
+                    value="123456"
+                    label="password"
+                    errorMessage="Неверный пароль"
+                    onChange={handleChange}
+                /> 
+            </Form>
+        </section>
     )
 }
