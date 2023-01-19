@@ -50,4 +50,11 @@
     color: #FFFFFF;
 }
 
+@media screen and (max-width: 450px) {
+    .filter__shorts {
+        font-size: 11px;
+        line-height: 18px;
+    }
+}
+
 

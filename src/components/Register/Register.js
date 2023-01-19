@@ -1,6 +1,6 @@
 import React from "react";
 import "./Register.css";
-import Form from "../Form/Form";
+import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
 
 export default function Register(){
@@ -16,8 +16,8 @@ export default function Register(){
 
     return(
         <section className="register">
-            <Form
-             title="Добро пожаловать!"
+            <RegisterForm
+                title="Добро пожаловать!"
                 submitButton="Зарегестрироваться"
                 questionMessage="Уже зарегистрированы?"
                 optionButton="Войти"
@@ -49,7 +49,7 @@ export default function Register(){
                     errorMessage="Неверный пароль"
                     onChange={handleChange}
                 /> 
-            </Form>
+            </RegisterForm>
         </section>
     )
 }

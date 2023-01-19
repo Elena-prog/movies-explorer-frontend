@@ -1,19 +1,16 @@
 import React from "react";
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
-// import Preloader from '../Preloader/Preloader';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-export default function Movies({ movies }){
+export default function Movies({ movies, loadMore }){
 
     return(
-        <div className="movies">
+        <section className="movies">
             <SearchForm/>
-            <div className="movies__container">
-                <FilterCheckbox/>
-            </div>
-            <MoviesCardList movies={movies}/>
-        </div>
+            <FilterCheckbox/>
+            <MoviesCardList movies={movies} loadMore={loadMore} type="movies"/>
+        </section>
     )
 }

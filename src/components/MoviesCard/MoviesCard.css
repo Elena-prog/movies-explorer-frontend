@@ -7,55 +7,54 @@
     position: relative;
 }
 
-.element__save-button {
+.element__button {
     border: 0;
     padding: 0;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.element__button:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+.element__button_type_save {
     background-color: #2F2F2F;
     width: 72px;
     height: 21px;
     border-radius: 30px;
-    position: absolute;
-    top: 14px;
-    right: 14px;
     font-weight: 400;
     font-size: 10px;
     line-height: 9px;
     color: #FFFFFF;
-    display: block;
 }
 
-.element__save-button:hover {
-    opacity: .6;
-    cursor: pointer;
+.element__button_type_save::after {
+    content: "Сохранить";
 }
 
-.element__save-button_hidden{
-    display: none;
-}
-
-.element__saved-button{
-    border: 0;
-    padding: 0;
+.element__button_type_tick{
     background-image: url(../../images/save.svg);
     width: 21px;
     height: 21px;
     border-radius: 50%;
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    display: none;
 }
 
-.element__saved-button:hover {
-    opacity: .6;
-    cursor: pointer;
+.element__button_type_tick::after {
+    content: "";
 }
 
-.element__saved-button_active{
-    display: block;
+.element__button_type_delete{
+    background-image: url(../../images/delete.svg);
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: #313131;
+    background-repeat: no-repeat;
+    background-position: center;
 }
-
-
 
 .element__container-image {
     width: 100%;
@@ -85,7 +84,7 @@
 .element__title{
     font-weight: 500;
     font-size: 13px;
-    line-height: 16px;
+    line-height: 1.23;
     color: #FFFFFF;
     margin: 0;
 }
@@ -93,12 +92,19 @@
 .element__duration{
     font-weight: 400;
     font-size: 11px;
-    line-height: 10px;
+    line-height: .9;
     color: #8B8B8B;
     box-sizing: border-box;
     padding: 3px 4px;
     border-radius: 3px;
     background-color: #2F2F2F;
+}
+
+@media screen and (max-width: 850px) {
+    .element__image {
+        min-height: 190px;
+        max-height: 190px;
+    }
 }
 
 @media screen and (max-width: 450px) {

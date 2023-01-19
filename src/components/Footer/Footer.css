@@ -2,6 +2,7 @@
     box-sizing: border-box;
     padding: 0 70px;
     flex-shrink: 0;
+    width: 100%;
 }
 
 .footer__title{
@@ -72,6 +73,7 @@
     .footer__copyright{
         font-size: 12px;
         line-height: 1.25;
+        color: #8B8B8B;
     }
 
     .footer__links{

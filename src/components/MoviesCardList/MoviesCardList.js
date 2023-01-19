@@ -1,47 +1,23 @@
 import React from "react";
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
+import allMovies from '../../tempDB';
 
-export default function MoviesCardList({onSaveClick, movies}){
-
-    const widthScreen = window.innerWidth;
-    let count; 
-    let i;
-    
-    if(widthScreen > 1100){
-        count = 12;
-        i = 3;
-    } else if(widthScreen < 1100 && widthScreen > 690){
-        count = 8;
-        i = 2;
-    } else if(widthScreen < 690){
-        count = 5;
-        i = 1;
-    }
-
-    const [num ,setNum] = React.useState(count)
-    const [loadMovies, setLoadMovies] = React.useState(movies.slice(0, num));
-
-
-    function loadMore(){
-        setLoadMovies([...loadMovies, ...movies.slice(num, num + i)]);
-        setNum(num + i);
-    };
- 
-
+export default function MoviesCardList({ movies, loadMore, type}){
     return(
         <section className="elements">
             <ul className="elements__group">
-                {loadMovies.map( (movie, index) => {
+                {movies.map( (movie) => {
                     return(<MoviesCard
-                        key={index}
-                        movie={movie} 
-                        handleSaveClick={onSaveClick} 
+                        key={movie.id}
+                        movie={movie}
+                        type={type}
                     />   
                     )
                 })}
             </ul>
-            <button onClick={loadMore} className={`elements__more-btn ${loadMovies.length === movies.length?'elements__more-btn_hidden':''}`}>Ещё</button>
+            <button onClick={loadMore} className={`elements__more-btn elements__more-btn_type_${type} ${ allMovies.length === movies.length?'elements__more-btn_hidden':''}`}>Ещё</button>
         </section> 
     )
 }

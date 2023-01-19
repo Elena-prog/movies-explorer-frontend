@@ -1,6 +1,6 @@
 import React from "react";
 import './Login.css';
-import Form from "../Form/Form";
+import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
 
 export default function Login(){
@@ -16,7 +16,7 @@ export default function Login(){
 
     return(
         <section className="login">
-            <Form
+            <RegisterForm
                 title="Рады видеть!"
                 submitButton="Войти"
                 questionMessage="Ещё не зарегистрированы?"
@@ -27,7 +27,7 @@ export default function Login(){
                     name="email"
                     id="email"
                     type="email"
-                    value="elena@mail.ru"
+                    value={values.email}
                     label="E-mail"
                     errorMessage="Невалидный email"
                     onChange={handleChange}
@@ -36,12 +36,12 @@ export default function Login(){
                     name="password"
                     id="password"
                     type="password"
-                    value="123456"
+                    value={values.password}
                     label="password"
                     errorMessage="Неверный пароль"
                     onChange={handleChange}
                 /> 
-            </Form>
+            </RegisterForm>
         </section>
     )
 }

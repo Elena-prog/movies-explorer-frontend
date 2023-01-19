@@ -1,7 +1,7 @@
 import React from "react";
-import './Form.css';
+import './RegisterForm.css';
 
-export default function Form({ title, children, submitButton, questionMessage, optionButton }){
+export default function RegisterForm({ title, children, submitButton, questionMessage, optionButton }){
     return(
         <form action="#" className="form">
             <h3 className="form__title">{title}</h3>

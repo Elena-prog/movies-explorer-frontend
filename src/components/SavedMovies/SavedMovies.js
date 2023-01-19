@@ -7,12 +7,10 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 export default function SavedMovies({ movies }){
 
     return(
-        <div className="saved-movies">
+        <section className="saved-movies">
             <SearchForm/>
-            <div className="saved-movies__container">
-                <FilterCheckbox/>
-            </div>
-            <MoviesCardList movies={movies}/>
-        </div>
+            <FilterCheckbox/>
+            <MoviesCardList movies={movies} type="saved-movies"/>
+        </section>
     )
 }
