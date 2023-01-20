@@ -23,7 +23,7 @@
     right: 0;
     bottom: 0;
     border-radius: 20px;
-    box-shadow: 1px 5px 1px black;
+    box-shadow: 1px 4px 4px rgba(0,0,0, .25);
 }
 
 .filter__slider:before {
@@ -34,7 +34,7 @@
     border-radius: 50%;
     left: 3px;
     bottom: 3px;
-    background-color: #F5F5F5;
+    background-color: #A0A0A0;
     transition: .4s;
 }
 

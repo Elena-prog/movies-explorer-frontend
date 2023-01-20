@@ -103,6 +103,10 @@
     padding: 0;
 }
 
+.profile__submit-button:hover{
+    opacity: .8;
+}
+
 .profile__option-button{
     font-weight: 500;
     color: #EE3465;
@@ -111,6 +115,10 @@
     width: 100%;
     border: none;
     padding: 0;
+}
+
+.profile__option-button:hover{
+    opacity: .8;
 }
 
 @media screen and (max-width: 850px) {

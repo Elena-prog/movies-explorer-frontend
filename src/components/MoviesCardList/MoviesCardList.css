@@ -36,6 +36,11 @@
     cursor: pointer;
     padding: 0;
 }
+
+.elements__more-btn:hover{
+    opacity: .8;
+}
+
 .elements__more-btn_type_movies {
     display: block;
 }

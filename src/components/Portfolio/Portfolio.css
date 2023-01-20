@@ -22,6 +22,7 @@
     border-bottom: solid 1px #424242;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px 0;
 }
 
@@ -39,8 +40,14 @@
 }
 
 .portfolio__link{
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     text-decoration: none;
+}
+
+.portfolio__link:hover{
+    opacity: .7;
 }
 
 .portfolio__link-image{
@@ -48,7 +55,7 @@
     background-repeat: no-repeat;
     background-position: center;
     width: 29px;
-    height: 60px;
+    height: 50px;
     background-color:transparent;
     border: none;
 }
@@ -82,6 +89,6 @@
 
     .portfolio__link-image{
         width: 18px;
+        height: 28px;
     }
-    
 }

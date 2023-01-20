@@ -149,7 +149,7 @@ const movies = [
         }
     },
     {
-        "id": 1,
+        "id": 4,
         "nameRU": "«Роллинг Стоунз» в изгнании",
         "nameEN": "Stones in Exile",
         "director": "Стивен Кайак ",
@@ -202,7 +202,7 @@ const movies = [
         }
     },
     {
-        "id": 2,
+        "id": 5,
         "nameRU": "All Tomorrow's Parties",
         "nameEN": "All Tomorrow's Parties",
         "director": " Джонатан Кауэтт",
@@ -255,7 +255,7 @@ const movies = [
         }
     },
     {
-        "id": 3,
+        "id": 6,
         "nameRU": " Без обратного пути",
         "nameEN": "No Distance Left to Run",
         "director": "Уилл Лавлейс, Дилан Сотерн",
@@ -298,7 +298,7 @@ const movies = [
         }
     },
     {
-        "id": 1,
+        "id": 7,
         "nameRU": "«Роллинг Стоунз» в изгнании",
         "nameEN": "Stones in Exile",
         "director": "Стивен Кайак ",
@@ -351,7 +351,7 @@ const movies = [
         }
     },
     {
-        "id": 2,
+        "id": 8,
         "nameRU": "All Tomorrow's Parties",
         "nameEN": "All Tomorrow's Parties",
         "director": " Джонатан Кауэтт",
@@ -404,7 +404,7 @@ const movies = [
         }
     },
     {
-        "id": 3,
+        "id": 9,
         "nameRU": " Без обратного пути",
         "nameEN": "No Distance Left to Run",
         "director": "Уилл Лавлейс, Дилан Сотерн",
@@ -447,7 +447,7 @@ const movies = [
         }
     },
     {
-        "id": 1,
+        "id": 10,
         "nameRU": "«Роллинг Стоунз» в изгнании",
         "nameEN": "Stones in Exile",
         "director": "Стивен Кайак ",
@@ -500,7 +500,7 @@ const movies = [
         }
     },
     {
-        "id": 2,
+        "id": 11,
         "nameRU": "All Tomorrow's Parties",
         "nameEN": "All Tomorrow's Parties",
         "director": " Джонатан Кауэтт",
@@ -553,7 +553,7 @@ const movies = [
         }
     },
     {
-        "id": 3,
+        "id": 12,
         "nameRU": " Без обратного пути",
         "nameEN": "No Distance Left to Run",
         "director": "Уилл Лавлейс, Дилан Сотерн",
@@ -596,7 +596,7 @@ const movies = [
         }
     },
     {
-        "id": 1,
+        "id": 13,
         "nameRU": "«Роллинг Стоунз» в изгнании",
         "nameEN": "Stones in Exile",
         "director": "Стивен Кайак ",
@@ -649,7 +649,7 @@ const movies = [
         }
     },
     {
-        "id": 2,
+        "id": 14,
         "nameRU": "All Tomorrow's Parties",
         "nameEN": "All Tomorrow's Parties",
         "director": " Джонатан Кауэтт",
@@ -702,7 +702,7 @@ const movies = [
         }
     },
     {
-        "id": 3,
+        "id": 15,
         "nameRU": " Без обратного пути",
         "nameEN": "No Distance Left to Run",
         "director": "Уилл Лавлейс, Дилан Сотерн",
@@ -745,7 +745,7 @@ const movies = [
         }
     },
     {
-        "id": 1,
+        "id": 16,
         "nameRU": "«Роллинг Стоунз» в изгнании",
         "nameEN": "Stones in Exile",
         "director": "Стивен Кайак ",
@@ -798,7 +798,7 @@ const movies = [
         }
     },
     {
-        "id": 2,
+        "id": 17,
         "nameRU": "All Tomorrow's Parties",
         "nameEN": "All Tomorrow's Parties",
         "director": " Джонатан Кауэтт",
@@ -851,7 +851,7 @@ const movies = [
         }
     },
     {
-        "id": 3,
+        "id": 18,
         "nameRU": " Без обратного пути",
         "nameEN": "No Distance Left to Run",
         "director": "Уилл Лавлейс, Дилан Сотерн",
@@ -894,7 +894,7 @@ const movies = [
         }
     },
     {
-        "id": 1,
+        "id": 19,
         "nameRU": "«Роллинг Стоунз» в изгнании",
         "nameEN": "Stones in Exile",
         "director": "Стивен Кайак ",

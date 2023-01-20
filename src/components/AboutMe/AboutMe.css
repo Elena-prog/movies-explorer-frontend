@@ -56,6 +56,10 @@
     cursor: pointer;
 }
 
+.about-me__link:hover{
+    opacity: .7;
+}
+
 @media screen and (max-width: 850px) {
     .about-me{
         padding: 90px 50px;
