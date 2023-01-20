@@ -25,6 +25,7 @@
     max-width: 100%;
     flex: auto;
     align-self: stretch;
+    border-radius: 8px;
 }
 
 .search-form__input:focus {
