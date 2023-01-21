@@ -1,0 +1,115 @@
+.element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.element__button {
+    border: 0;
+    padding: 0;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+}
+
+.element__button:hover {
+    opacity: .6;
+    cursor: pointer;
+}
+
+.element__button_type_save {
+    background-color: #2F2F2F;
+    width: 72px;
+    height: 21px;
+    border-radius: 30px;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 9px;
+    color: #FFFFFF;
+}
+
+.element__button_type_save::after {
+    content: "Сохранить";
+}
+
+.element__button_type_tick{
+    background-image: url(../../images/save.svg);
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+}
+
+.element__button_type_tick::after {
+    content: "";
+}
+
+.element__button_type_delete{
+    background-image: url(../../images/delete.svg);
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background-color: #313131;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.element__container-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+}
+
+.element__image {
+    object-fit: cover;
+    min-height: 201px;
+    max-height: 201px;
+    height: 100%;
+    width: 100%;
+    display: block;
+    /* border: 0; */
+}
+
+.element__caption{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-top: 14px;
+    padding: 0 14px;
+}
+
+.element__title{
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.23;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.element__duration{
+    font-weight: 400;
+    font-size: 11px;
+    line-height: .9;
+    color: #8B8B8B;
+    box-sizing: border-box;
+    padding: 3px 4px;
+    border-radius: 3px;
+    background-color: #2F2F2F;
+}
+
+@media screen and (max-width: 850px) {
+    .element__image {
+        min-height: 190px;
+        max-height: 190px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .element__image {
+        min-height: 168px;
+        max-height: 168px;
+    }
+}

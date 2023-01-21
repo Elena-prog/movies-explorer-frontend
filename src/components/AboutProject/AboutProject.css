@@ -1,0 +1,121 @@
+.about-project{
+    box-sizing: border-box;
+    padding: 100px 70px;
+}
+
+.about-project__container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin: 70px 0 110px;
+}
+
+.about-project__items{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.about-project__header-item{
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+    margin: 70px 0 26px;
+    margin: 0;
+    margin-bottom: 26px;
+}
+
+.about-project__paragraph-item{
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.43;
+    margin: 0;
+}
+
+.about-project__diagram-container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    row-gap:14px;
+    align-items: center;
+    font-size: 14px;
+    line-height: 1.21;
+}
+
+.about-project__diagram{
+    font-weight: 400;
+    height: 36px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+
+.about-project__diagram_type_backend{
+    background-color: #3DDC84;
+    color:#000000;
+}
+
+.about-project__diagram_type_frontend{
+    background-color: #303030;
+    color:#FFFFFF;
+}
+
+.about-project__caption{
+    font-weight: 500;
+    color: #8B8B8B;
+    margin: 0;
+    text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+    .about-project{
+        padding: 90px 50px;
+    }
+
+    .about-project__header-item{
+        margin-bottom: 22px;
+    }
+    
+    .about-project__paragraph-item{
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .about-project__diagram-container{
+        grid-template-columns: 1fr 3.77fr;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .about-project{
+        padding: 70px 18px;
+    }
+
+    .about-project__container{
+        flex-direction: column;
+        gap: 56px;
+        margin: 60px 0;
+    }
+
+    .about-project__header-item{
+        font-size: 18px;
+        line-height: 1.22;
+    }
+
+    .about-project__paragraph-item{
+        font-size: 11px;
+        line-height: 1.45;
+    }
+
+    .about-project__diagram-container{
+        grid-template-columns: 1fr 1.84fr;
+        font-size: 11px;
+        line-height: 1.18;
+        row-gap: 10px;
+    }
+}

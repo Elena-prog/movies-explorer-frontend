@@ -1,0 +1,50 @@
+.input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input__label{ 
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #8B8B8B;
+}
+
+.input__field{
+    width: 100%;
+    outline: none;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.23;
+    color: #FFFFFF;
+    background-color: #2F2F2F;
+    border-radius: 8px;
+    border: none;
+    height: 46px;
+    margin: 10px 0;
+    padding: 15px;
+}
+
+.input__field:focus{
+    outline: none;
+    box-shadow: inset 0 0 5px 1px #8B8B8B;
+}
+
+.input__field::placeholder{
+    color: #8B8B8B;
+}
+
+.input__error{
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.2;
+    color: #EE3465;
+    width: 100%;
+    visibility: hidden;
+}
+
+.input__error_visible{
+    visibility: visible;
+}
