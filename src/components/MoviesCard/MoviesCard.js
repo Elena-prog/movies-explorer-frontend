@@ -23,7 +23,7 @@ export default function MoviesCard({movie, type}){
         <li className="element">
             <button className={movieButtonClassName} onClick={handleClick} aria-label="Сохранить."></button>
             <div className="element__container-image">
-                <img src={movie.image.url} alt={movie.nameRu} className="element__image"/>
+                <img src={`https://api.nomoreparties.co/${movie.image.url}`} alt={movie.nameRu} className="element__image"/>
             </div>
             <div className="element__caption">
                 <h3 className="element__title">{movie.nameRU}</h3>

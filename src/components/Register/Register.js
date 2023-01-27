@@ -3,7 +3,7 @@ import "./Register.css";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
 
-export default function Register(){
+export default function Register({onRegister}){
     const [values, setValues] = React.useState({name:"", email:"", password:""});
 
     function handleChange(e) {
@@ -14,6 +14,11 @@ export default function Register(){
         }))
     }
 
+    function hanleSubmit(e){
+        e.preventDefault();
+        onRegister(values.email, values.password, values.name);
+    }
+
     return(
         <section className="register">
             <RegisterForm
@@ -21,6 +26,7 @@ export default function Register(){
                 submitButton="Зарегестрироваться"
                 questionMessage="Уже зарегистрированы?"
                 optionButton="Войти"
+                onSubmit={hanleSubmit}
             >
                 <Input
                     name="name"

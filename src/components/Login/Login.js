@@ -3,7 +3,7 @@ import './Login.css';
 import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
 
-export default function Login(){
+export default function Login({onLogin}){
     const [values, setValues] = React.useState({email:"", password:""});
 
     function handleChange(e) {
@@ -14,6 +14,11 @@ export default function Login(){
         }))
     }
 
+    function hanleSubmit(e){
+        e.preventDefault();
+        onLogin(values.email, values.password);
+    }
+
     return(
         <section className="login">
             <RegisterForm
@@ -21,6 +26,7 @@ export default function Login(){
                 submitButton="Войти"
                 questionMessage="Ещё не зарегистрированы?"
                 optionButton="Регистрация"
+                onSubmit={hanleSubmit}
 
             >
                 <Input

@@ -53,6 +53,17 @@
     display: none;
 }
 
+.elements__more-btn_visible{
+    display: block;
+}
+
+.elements__not-found{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.25;
+    color: #FFFFFF;
+}
+
 @media screen and (max-width: 768px) {
     .elements__group{
         gap: 47px 30px;

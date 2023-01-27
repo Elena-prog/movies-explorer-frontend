@@ -6,8 +6,7 @@ import Navigation from '../Navigation/Navigation';
 import Account from '../Account/Account';
 import BurgerButton from '../BurgerButton/BurgerButton';
 
-export default function Header ({ openPopup }) {
-    const loggedIn = true;
+export default function Header ({ openPopup, loggedIn }) {
 
     return (
         <Routes>

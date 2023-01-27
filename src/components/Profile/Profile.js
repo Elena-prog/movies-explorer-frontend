@@ -1,7 +1,7 @@
 import React from "react";
 import './Profile.css';
 
-export default function Profile(){
+export default function Profile({onLogout}){
     const [values, setValues] = React.useState({name:"", email:""});
 
     function handleChange(e) {
@@ -62,7 +62,7 @@ export default function Profile(){
                 </ul>
                 <div className="profile__button-container">
                     <button type="submit" className="profile__submit-button">Редактировать</button>
-                    <button type="button" className="profile__option-button">Выйти из аккаунта</button>
+                    <button onClick={onLogout} type="button" className="profile__option-button">Выйти из аккаунта</button>
                 </div>
             </form>
         </section>

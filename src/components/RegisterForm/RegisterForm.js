@@ -1,9 +1,10 @@
 import React from "react";
 import './RegisterForm.css';
 
-export default function RegisterForm({ title, children, submitButton, questionMessage, optionButton }){
+export default function RegisterForm({ title, children, submitButton, questionMessage, optionButton, onSubmit }){
+
     return(
-        <form action="#" className="form">
+        <form action="#" className="form" onSubmit={onSubmit}>
             <h3 className="form__title">{title}</h3>
             <ul className="form__input-container">
                 {children}
