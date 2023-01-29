@@ -29,6 +29,7 @@ function App() {
   const [isFiltering, setIsFiltering] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [notFoundMovie, setNotFoundMovie] = React.useState('');
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   let location = useLocation();
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ function App() {
     cardsInRow = 2;
   } else if(widthScreen < 690){
     initialCount = 5;
-    cardsInRow = 1;
+    cardsInRow = 2;
   }
 
   const [num ,setNum] = React.useState(initialCount);
@@ -54,6 +55,20 @@ function App() {
       setLoadMovies([...loadMovies, ...foundMovies.slice(num, num + cardsInRow)]);
       setNum(num + cardsInRow);
   };
+
+  React.useEffect(()=>{
+    mainApi
+     .getMovies()
+     .then(res => {
+        const result = res.map((item) => {
+          item.id = item.movieId;
+          return item;
+        })
+       console.log(result);
+       setSavedMovies(result);
+     })
+     .catch(err=> console.log(err))
+ },[])
 
  React.useEffect(()=>{
   if(foundMovies){
@@ -122,14 +137,12 @@ function App() {
       .logout()
       .then(res => {
         setLoggedIn(false);
-        localStorage.clear();
         setFoundMovies([]);
         setLoadMovies([]);
         setNum(initialCount);
         setNotFoundMovie('');
-        // localStorage.removeItem("loggedIn");
-        // localStorage.removeItem("movies");
-        // localStorage.removeItem("search");
+        setSearch('');
+        localStorage.clear();
       })
       .catch((err) => console.log(`Ошибка: ${err}. Не удалось выйти из приложения.`))
   }
@@ -140,10 +153,16 @@ function App() {
       return moviesApi
         .getMovies()
         .then((movies) => {
-          localStorage.setItem('movies', JSON.stringify(movies));
-          setMovies(movies);
+          const resultmovie = movies.map((item)=> {
+             item.image.url = `https://api.nomoreparties.co/${item.image.url}`;
+             item.image.formats.thumbnail.url = `https://api.nomoreparties.co/${item.image.formats.thumbnail.url}`;
+             item.isSaved = false;
+             return item;
+          })
+          localStorage.setItem('movies', JSON.stringify(resultmovie));
+          setMovies(resultmovie);
           localStorage.setItem('search', search);
-          setSearch(search)
+          // setSearch(search)
           found(search);
         })
         .catch((err)=> {
@@ -155,7 +174,7 @@ function App() {
         })
     } else {
       localStorage.setItem('search', search);
-      setSearch(search)
+      // setSearch(search)
       found(search);
     }
   }
@@ -181,6 +200,57 @@ function App() {
     setIsFiltering(!isFiltering);
   }
 
+  function saveMovie(likedMovie){
+    return mainApi
+    .like(likedMovie)
+    .then(res=>{
+      const result = foundMovies.map((foundMovie)=>{
+        if(foundMovie.id === res.movieId){
+          foundMovie._id = res._id;
+          foundMovie.isSaved = true;
+          return foundMovie;
+        } else {
+          return foundMovie;
+        }
+      })
+      setFoundMovies(result);
+      setSavedMovies([...savedMovies, res])
+      // setFoundMovies((movies) => 
+      // movies.map((m) => (m.id === res.movieId ? res : m)))
+      // getMovies();
+    })
+    .catch(err => console.log(err))
+  }
+
+  function deleteMovie(movie) {
+    return mainApi
+    .deleteMovie(movie._id)
+    .then((res)=> {
+      const result = foundMovies.map((foundMovie)=>{
+        if(foundMovie.id === res.movieId){
+          foundMovie.isSaved = false;
+          return foundMovie;
+        } else {
+          return foundMovie;
+        }
+      })
+      setFoundMovies(result);
+      setSavedMovies((savedmovies)=> savedmovies.filter((m)=> m._id !== res._id))
+    })
+    .catch(err=> console.log(err))
+  }
+
+
+
+  // function getMovies(){
+  //   return mainApi
+  //     .getMovies()
+  //     .then(res => {
+  //       setSavedMovies([...savedMovies, res])
+  //     })
+  //     .catch(err=> console.log(err))
+  // }
+
   return ( 
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
@@ -202,7 +272,10 @@ function App() {
             handleChangeCheckbox={handleChangeCheckbox}
             isLoading={isLoading}
             notFoundMovie={notFoundMovie}
-
+            saveMovie={saveMovie}
+            search={search}
+            setSearch={setSearch}
+            deleteMovie={deleteMovie}
             />}
         />
         <Route 
@@ -210,7 +283,8 @@ function App() {
           element={<ProtectedRouteElement 
             component={SavedMovies} 
             loggedIn={loggedIn} 
-             movies={foundMovies}/>}
+             movies={savedMovies}
+             deleteMovie={deleteMovie}/>}
         />
         <Route 
           path="/profile" 

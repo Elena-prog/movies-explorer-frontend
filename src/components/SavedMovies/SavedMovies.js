@@ -4,13 +4,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-export default function SavedMovies({ movies }){
+export default function SavedMovies({ movies, deleteMovie }){
 
     return(
         <section className="saved-movies">
             <SearchForm/>
             <FilterCheckbox/>
-            <MoviesCardList movies={movies} type="saved-movies"/>
+            {movies? <MoviesCardList movies={movies} deleteMovie={deleteMovie} type="saved-movies"/>: ''}
+            
         </section>
     )
 }

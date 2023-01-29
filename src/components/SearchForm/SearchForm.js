@@ -1,8 +1,7 @@
 import React from "react";
 import './SearchForm.css';
 
-export default function SearchForm({searchMovies}){
-    const [search, setSearch] = React.useState('');
+export default function SearchForm({searchMovies, search, setSearch}){
     const [showError, setShowError] = React.useState(false);
     
     function handleChange(e) {

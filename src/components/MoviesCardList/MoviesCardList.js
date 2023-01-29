@@ -1,38 +1,34 @@
 import React from "react";
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import Preloader from '../Preloader/Preloader';
 
-export default function MoviesCardList({ movies, loadMore, type, foundMovies, isLoading, notFoundMovie}){
-    console.log(notFoundMovie);
+export default function MoviesCardList({ movies, loadMore, type, foundMovies, saveMovie, deleteMovie}){ 
     return(
         <section className="elements">
-            {isLoading? 
-            <Preloader/>
+            <ul className="elements__group">
+                {movies.map( (movie) => {
+                    let uniqueKey;
+                    if(type === "movies"){
+                        uniqueKey = movie.id;
+                    }
+                    if(type === "saved-movies"){
+                        uniqueKey = movie.movieId;
+                    }
+                    return(<MoviesCard
+                        key={uniqueKey} 
+                        movie={movie}
+                        type={type}
+                        saveMovie={saveMovie}
+                        deleteMovie={deleteMovie}
+                    />   
+                    )
+                })
+                }
+            </ul>
+            {type === movies? 
+            <button onClick={loadMore} className={`elements__more-btn elements__more-btn_type_${type} ${ foundMovies.length === movies.length?'elements__more-btn_hidden':'elements__more-btn_visible'}`}>Ещё</button>
             :
-            <>
-                {
-                movies.length !==0 ?
-                <>
-                    <ul className="elements__group">
-                        {  movies.map( (movie) => {
-                            return(<MoviesCard
-                                key={movie.id}
-                                movie={movie}
-                                type={type}
-                            />   
-                            )
-                        })
-                        }
-                    </ul>
-                    <button onClick={loadMore} className={`elements__more-btn elements__more-btn_type_${type} ${ foundMovies.length === movies.length?'elements__more-btn_hidden':'elements__more-btn_visible'}`}>Ещё</button>
-                </>
-                :
-                <span className="elements__not-found">{notFoundMovie}</span>
-            }
-            </>
-            }
-
+            ''}
         </section> 
     )
 }
