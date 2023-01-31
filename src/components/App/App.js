@@ -26,10 +26,11 @@ function App() {
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [loadMovies, setLoadMovies] = React.useState([]);
   const [infoRegister, setInfoRegister] = React.useState({status: false, message: "", icon: ""});
-  const [isFiltering, setIsFiltering] = React.useState(false);
+  const [isFiltering, setIsFiltering] = React.useState(()=> localStorage.getItem('isFiltering'));
   const [isLoading, setIsLoading] = React.useState(false);
   const [notFoundMovie, setNotFoundMovie] = React.useState('');
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [registerErrorMessage, setRegisterErrorMessage] = React.useState('');
 
   let location = useLocation();
   const navigate = useNavigate();
@@ -57,18 +58,22 @@ function App() {
   };
 
   React.useEffect(()=>{
-    mainApi
-     .getMovies()
-     .then(res => {
-        const result = res.map((item) => {
-          item.id = item.movieId;
-          return item;
-        })
-       console.log(result);
-       setSavedMovies(result);
-     })
-     .catch(err=> console.log(err))
- },[])
+    setIsFiltering(false);
+    if(loggedIn){
+      mainApi
+      .getMovies()
+      .then(res => {
+         const result = res.map((item) => {
+           item.id = item.movieId;
+           return item;
+         })
+        console.log(result);
+        setSavedMovies(result);
+      })
+      .catch(err=> console.log(err))
+    }
+
+ },[loggedIn])
 
  React.useEffect(()=>{
   if(foundMovies){
@@ -101,15 +106,16 @@ function App() {
             icon: "succes"
           })
         }
+        setRegisterErrorMessage('');
         navigate("/signin");
       })
       .catch((err) => {
-        setInfoRegister({
-          status: true,
-          message: "Что-то пошло не так! Попробуйте еще раз.",
-          icon: "fail",
-        });
-        console.log(`${err}. Некорректно заполнено одно из полей.`);
+        if (err === '409') {
+          setRegisterErrorMessage('Пользователь с таким email уже существует');
+        } else {
+          setRegisterErrorMessage('При регистрации пользователя произошла ошибка');
+        }
+        console.log(`Ошибка : ${err}`);
       })
   }
 
@@ -119,16 +125,17 @@ function App() {
       .then((userData) => {
         setLoggedIn(true);
         setCurrentUser(email);
-        localStorage.setItem("loggedIn", true)
+        localStorage.setItem("loggedIn", true);
+        setRegisterErrorMessage('');
         navigate("/movies");        
       })
       .catch((err) => {
-        setInfoRegister({
-          status: true,
-          message: "Что-то пошло не так! Попробуйте еще раз.",
-          icon: "fail",
-        });
-        console.log(`${err}. Некорректно заполнено одно из полей.`);
+        if (err === '401') {
+          setRegisterErrorMessage('Вы ввели неправильный логин или пароль. ');
+        } else {
+          setRegisterErrorMessage('При регистрации пользователя произошла ошибка');
+        }
+        console.log(`Ошибка : ${err}`);
       })
   }
 
@@ -153,14 +160,24 @@ function App() {
       return moviesApi
         .getMovies()
         .then((movies) => {
-          const resultmovie = movies.map((item)=> {
+          const resultmovies = movies.map((item)=> {
              item.image.url = `https://api.nomoreparties.co/${item.image.url}`;
              item.image.formats.thumbnail.url = `https://api.nomoreparties.co/${item.image.formats.thumbnail.url}`;
-             item.isSaved = false;
+             if(savedMovies.some((i) => i.movieId === item.id)){
+              item.isSaved = true;
+              item._id = (savedMovies.find((i) => i.movieId === item.id))._id;
+             } else {
+              item.isSaved = false;
+             }
+            //  savedMovies.some((i) => i.movieId === item.id) ? item.isSaved = true : item.isSaved = false;
+            // if(savedMovies.find((i) => i.movieId === item.id)){
+            //   item._id = savedMovies.find((i) => i.movieId === item.id)._id;
+            // }
              return item;
           })
-          localStorage.setItem('movies', JSON.stringify(resultmovie));
-          setMovies(resultmovie);
+          localStorage.setItem('movies', JSON.stringify(resultmovies));
+          console.log(resultmovies);
+          setMovies(resultmovies);
           localStorage.setItem('search', search);
           // setSearch(search)
           found(search);
@@ -256,8 +273,8 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
       {location.pathname !== "/404"?<Header loggedIn={loggedIn}  openPopup={openPopup}/> : null}
       <Routes>
-        <Route path="/signup" element={<Register onRegister={onRegister}/>}/>
-        <Route path="/signin" element={<Login onLogin={onLogin}/>}/>
+        <Route path="/signup" element={<Register onRegister={onRegister} registerErrorMessage={registerErrorMessage}/>}/>
+        <Route path="/signin" element={<Login onLogin={onLogin} registerErrorMessage={registerErrorMessage}/>}/>
         <Route path="/" element={<Main/>}/>
         <Route 
           path="/movies" 
@@ -276,15 +293,19 @@ function App() {
             search={search}
             setSearch={setSearch}
             deleteMovie={deleteMovie}
+          
             />}
         />
-        <Route 
+        <Route
           path="/saved-movies" 
           element={<ProtectedRouteElement 
             component={SavedMovies} 
             loggedIn={loggedIn} 
              movies={savedMovies}
-             deleteMovie={deleteMovie}/>}
+             deleteMovie={deleteMovie}
+             isFiltering = {isFiltering}
+             handleChangeCheckbox={handleChangeCheckbox}
+             />}
         />
         <Route 
           path="/profile" 

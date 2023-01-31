@@ -5,9 +5,9 @@ class MainApi {
 
     _getResponseData(res) {
         if (!res.ok) {
-            if(res.status === 400) {throw new Error('Не передано одно из полей')}
-            if(res.status === 401) {throw new Error(`пользователь с таким email не найден`)}
-            return Promise.reject(`Ошибка: ${res.status}`); 
+            // if(res.status === 400) {throw new Error('Не передано одно из полей')}
+            // if(res.status === 401) {throw new Error(`пользователь с таким email не найден`)}
+            return Promise.reject(`${res.status}`); 
         }
         return res.json();
     } 
@@ -19,7 +19,7 @@ class MainApi {
             headers: {
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({'email': email, 'password': password, name: 'name' })
+            body: JSON.stringify({'email': email, 'password': password, 'name': name })
         })
         .then(this._getResponseData)
     }
@@ -94,8 +94,8 @@ class MainApi {
         .then(this._getResponseData)
     }
 
-    deleteMovie(id) {
-        return fetch(`${this._baseUrl}/movies/${id}`, {
+    deleteMovie(movieId) {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: "DELETE",
             credentials: 'include',
             headers: {

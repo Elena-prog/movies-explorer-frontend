@@ -3,18 +3,44 @@ import './Login.css';
 import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
 
-export default function Login({onLogin}){
+export default function Login({onLogin, registerErrorMessage}){
     const [values, setValues] = React.useState({email:"", password:""});
+    const [emailValid, setEmailValid] = React.useState(true);
+    const [passwordValid, setPasswordValid] = React.useState(true);
+    const [formValid, setFormValid] = React.useState(true);
+
+    function validateField(fieldName, value){
+        if(fieldName === 'email') {
+            if(!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+                setEmailValid(false);
+            } else {
+                setEmailValid(true);
+            }
+        }
+        if(fieldName === 'password') {
+            if(value.length < 2 || value.length > 8) {
+                setPasswordValid(false);
+            } else {
+                setPasswordValid(true);
+            }
+        }
+    }
+
+    React.useEffect(()=>{
+        setFormValid(emailValid && passwordValid);
+    }, [emailValid, passwordValid])
+
 
     function handleChange(e) {
         const {name, value} = e.target;
+        validateField(name, value)
         setValues((prev)=>({
             ...prev,
             [name]: value
         }))
     }
 
-    function hanleSubmit(e){
+    function handleSubmit(e){
         e.preventDefault();
         onLogin(values.email, values.password);
     }
@@ -26,7 +52,10 @@ export default function Login({onLogin}){
                 submitButton="Войти"
                 questionMessage="Ещё не зарегистрированы?"
                 optionButton="Регистрация"
-                onSubmit={hanleSubmit}
+                onSubmit={handleSubmit}
+                formValid={formValid}
+                link="/signup"
+                registerErrorMessage={registerErrorMessage}
 
             >
                 <Input
@@ -37,6 +66,7 @@ export default function Login({onLogin}){
                     label="E-mail"
                     errorMessage="Невалидный email"
                     onChange={handleChange}
+                    fieldValid = {emailValid}
                 /> 
                 <Input
                     name="password"
@@ -44,8 +74,9 @@ export default function Login({onLogin}){
                     type="password"
                     value={values.password}
                     label="password"
-                    errorMessage="Неверный пароль"
+                    errorMessage="Пароль должен содержать от 2 до 8 символов"
                     onChange={handleChange}
+                    fieldValid = {passwordValid}
                 /> 
             </RegisterForm>
         </section>
