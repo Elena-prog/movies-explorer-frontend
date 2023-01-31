@@ -104,6 +104,19 @@ class MainApi {
         })
         .then(this._getResponseData)
     }
+
+    updateUser(name, email) {
+        return fetch(`${this._baseUrl}/users/me`, {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"name": name,"email": email})
+        })
+        .then(this._getResponseData)
+    }
+
 }
 
 const mainApi = new MainApi({

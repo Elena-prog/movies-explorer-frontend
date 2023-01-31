@@ -93,6 +93,15 @@
     gap: 16px;
 }
 
+.profile__submit-error{
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #FF004C;
+    width: 100%;
+    text-align: center;
+}
+
 .profile__submit-button{
     font-weight: 400;
     color: #FFFFFF;
@@ -106,6 +115,16 @@
 .profile__submit-button:hover{
     opacity: .8;
 }
+
+.profile__submit-button[disabled] {
+    color:#8B8B8B;
+}
+
+.profile__submit-button[disabled] {
+    opacity: 1;
+    cursor: default;
+}
+
 
 .profile__option-button{
     font-weight: 500;

@@ -1,20 +1,65 @@
 import React from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
 
-export default function Profile({onLogout}){
-    const [values, setValues] = React.useState({name:"", email:""});
+export default function Profile({onLogout, onUpdateUser, registerErrorMessage}){
+    const currentUser = React.useContext(CurrentUserContext);
+    const [values, setValues] = React.useState({name: currentUser.name, email:currentUser.email});
+
+    const [nameValid, setNameValid] = React.useState(true);
+    const [emailValid, setEmailValid] = React.useState(true);
+    const [formValid, setFormValid] = React.useState(false);
+    const [isSameField, setIsSameField] = React.useState(true);
+    
+    function validateField(fieldName, value){
+        if(fieldName === 'name') {
+            if(value.length < 2 || value.length > 30 || !value.match(/^[А-ЯA-ZёәіңғүұқөһӘІҢҒҮҰҚӨҺ\s-]+$/umi)) {
+                setNameValid(false);
+            } else if(value === currentUser.name ) {
+                setIsSameField(true);
+            } else {
+                setNameValid(true);
+                setIsSameField(false);
+            }   
+        }
+        if(fieldName === 'email') {
+            if(!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+                setEmailValid(false);
+            } else if (value === currentUser.email) {
+                setIsSameField(true);
+            }
+            else {
+                setEmailValid(true);
+                setIsSameField(false);
+            }
+        }
+    }
+
+    React.useEffect(()=>{
+        setFormValid(nameValid && emailValid && !isSameField);
+    }, [nameValid, emailValid, isSameField])
 
     function handleChange(e) {
         const {name, value} = e.target;
+        validateField(name, value);
         setValues((prev)=>({
             ...prev,
             [name]: value
         }))
     }
 
+    function handleSubmit(e) {
+        e.preventDefault();
+        setIsSameField(false);
+        onUpdateUser(values.name, values.email)
+        .finally(() => {
+            setIsSameField(true)
+        })
+    }
+
     return(
         <section className="profile">
-            <form className="profile__form">
+            <form className="profile__form" onSubmit={handleSubmit}>
                 <h3 className="profile__title">{`Привет, ${values.name}`}</h3>
                 <ul className="profile__input-items">
                     <li className="profile__input-item">
@@ -34,8 +79,8 @@ export default function Profile({onLogout}){
                             />
                         </div>
                         <span 
-                            className="profile__error">
-                            Имя должно содержать от 2 до 30 символов
+                            className={`profile__error ${nameValid? '': 'profile__error_visible'}`}>
+                            Имя должно быть от 2 до 30 символов и содержать только латиницу, кириллицу, пробел или дефис
                         </span>
                     </li>
                     <li className="profile__input-item">
@@ -55,13 +100,14 @@ export default function Profile({onLogout}){
                             />
                         </div>
                         <span 
-                            className="profile__error">
+                            className={`profile__error ${emailValid? '': 'profile__error_visible'}`}>
                             Невалидный email
                         </span>
                     </li>
                 </ul>
                 <div className="profile__button-container">
-                    <button type="submit" className="profile__submit-button">Редактировать</button>
+                    <span className="profile__submit-error">{registerErrorMessage}</span>
+                    <button disabled={!formValid || isSameField} type="submit" className="profile__submit-button">Редактировать</button>
                     <button onClick={onLogout} type="button" className="profile__option-button">Выйти из аккаунта</button>
                 </div>
             </form>

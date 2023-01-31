@@ -22,7 +22,7 @@ function App() {
   const [movies, setMovies] = React.useState(()=> JSON.parse(localStorage.getItem('movies')));
   const [search, setSearch] = React.useState(() => localStorage.getItem('search'));
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(()=> JSON.parse(localStorage.getItem("currentUser")));
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [loadMovies, setLoadMovies] = React.useState([]);
   const [infoRegister, setInfoRegister] = React.useState({status: false, message: "", icon: ""});
@@ -124,7 +124,8 @@ function App() {
       .login(email, password)
       .then((userData) => {
         setLoggedIn(true);
-        setCurrentUser(email);
+        setCurrentUser(userData);
+        localStorage.setItem("currentUser", JSON.stringify(userData))
         localStorage.setItem("loggedIn", true);
         setRegisterErrorMessage('');
         navigate("/movies");        
@@ -143,6 +144,7 @@ function App() {
     return mainApi
       .logout()
       .then(res => {
+        setCurrentUser(null);
         setLoggedIn(false);
         setFoundMovies([]);
         setLoadMovies([]);
@@ -205,11 +207,8 @@ function App() {
     setFoundMovies(filteredMovies);
     setIsLoading(false);
     if(filteredMovies.length === 0){
-      console.log('не найден');
       setNotFoundMovie('Ничего не найдено');
-
     } else {
-      console.log('найден');
       setNotFoundMovie('')}
   }
 
@@ -257,6 +256,29 @@ function App() {
     .catch(err=> console.log(err))
   }
 
+  function onUpdateUser(name, email){
+    return mainApi
+    .updateUser(name, email)
+    .then((userData) =>{
+      setCurrentUser(userData);
+      localStorage.setItem("currentUser", JSON.stringify(userData));
+      setInfoRegister({
+        status: true,
+        message: "Профиль обновлен!",
+        icon: "succes"
+      })
+      setRegisterErrorMessage('');
+    })
+    .catch((err) => {
+      if (err === '409') {
+        setRegisterErrorMessage('Пользователь с таким email уже существует.');
+      } else {
+        setRegisterErrorMessage('При обновлении профиля произошла ошибка');
+      }
+      console.log(`Ошибка : ${err}`);
+    })
+  }
+
 
 
   // function getMovies(){
@@ -273,9 +295,23 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
       {location.pathname !== "/404"?<Header loggedIn={loggedIn}  openPopup={openPopup}/> : null}
       <Routes>
-        <Route path="/signup" element={<Register onRegister={onRegister} registerErrorMessage={registerErrorMessage}/>}/>
-        <Route path="/signin" element={<Login onLogin={onLogin} registerErrorMessage={registerErrorMessage}/>}/>
-        <Route path="/" element={<Main/>}/>
+        <Route 
+          path="/" 
+          element={<Main/>}/>
+        <Route 
+          path="/signup" 
+          element={<Register
+            onRegister={onRegister}
+            registerErrorMessage={registerErrorMessage}
+          />}
+        />
+        <Route 
+          path="/signin" 
+          element={<Login 
+            onLogin={onLogin} 
+            registerErrorMessage={registerErrorMessage}
+          />}
+        />
         <Route 
           path="/movies" 
           element={<ProtectedRouteElement 
@@ -312,7 +348,9 @@ function App() {
           element={<ProtectedRouteElement 
             component={Profile} 
             loggedIn={loggedIn}
-            onLogout={onLogout}/>}
+            onLogout={onLogout}
+            onUpdateUser={onUpdateUser}
+            registerErrorMessage={registerErrorMessage}/>}
         />
         <Route path="/404" element={<PageNotFound/>}/>
         <Route path="*" element={<Navigate to="/404"/>}/>
