@@ -1,9 +1,14 @@
 import React from "react";
 import './SearchForm.css';
 
-export default function SearchForm({searchMovies, search, setSearch}){
+export default function SearchForm({
+    handleSearchMovies, 
+    search, 
+    setSearch
+}){
     const [showError, setShowError] = React.useState(false);
-    
+
+
     function handleChange(e) {
         setSearch(e.target.value);
         setShowError(false);
@@ -12,7 +17,7 @@ export default function SearchForm({searchMovies, search, setSearch}){
     function handleSubmit(e) {
         e.preventDefault();
         if(search !== ''){
-            searchMovies(search)
+            handleSearchMovies(search);
             setShowError(false);
         } else {
             setShowError(true);

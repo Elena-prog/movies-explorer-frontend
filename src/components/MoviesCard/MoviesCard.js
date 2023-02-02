@@ -1,13 +1,14 @@
 import React from "react";
 import './MoviesCard.css';
 
-export default function MoviesCard({movie, type, saveMovie, deleteMovie}){
-    // const [isSaved, setIsSaved] = React.useState(false);
+export default function MoviesCard({movie, type, saveMovie, deleteMovie, savedMovies}){
     let movieButtonClassName;
     let url;
+    console.log(savedMovies);
+    const saved = savedMovies.some((i)=> i.movieId === movie.id);
     if(type === "movies"){
         movieButtonClassName = (
-            `element__button ${movie.isSaved? "element__button_type_tick": "element__button_type_save"}`
+            `element__button ${saved? "element__button_type_tick": "element__button_type_save"}`
         );
         url= movie.image.url;
     }
@@ -16,12 +17,10 @@ export default function MoviesCard({movie, type, saveMovie, deleteMovie}){
             `element__button element__button_type_delete`
         );
         url= movie.image;
-        // setIsSaved(true);
     }
  
     function handleClick() {
-        // setIsSaved(!isSaved);
-        if(movie.isSaved || type === "saved-movies"){
+        if(saved || type === "saved-movies"){
             deleteMovie(movie);
         } else {
             saveMovie(movie);

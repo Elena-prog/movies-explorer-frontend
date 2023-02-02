@@ -20,7 +20,6 @@ import './App.css';
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(()=> localStorage.getItem('loggedIn'));
   const [movies, setMovies] = React.useState(()=> JSON.parse(localStorage.getItem('movies')));
-  const [search, setSearch] = React.useState(() => localStorage.getItem('search'));
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(()=> JSON.parse(localStorage.getItem("currentUser")));
   const [foundMovies, setFoundMovies] = React.useState([]);
@@ -50,36 +49,37 @@ function App() {
   }
 
   const [num ,setNum] = React.useState(initialCount);
-  // const [loadMovies, setLoadMovies] = React.useState(()=> foundMovies.slice(0, num));
 
   function loadMore(){
-      setLoadMovies([...loadMovies, ...foundMovies.slice(num, num + cardsInRow)]);
-      setNum(num + cardsInRow);
+    setLoadMovies([...loadMovies, ...foundMovies.slice(num, num + cardsInRow)]);
+    setNum(num + cardsInRow);
   };
 
   React.useEffect(()=>{
+    localStorage.setItem('isFiltering', false);
     setIsFiltering(false);
     if(loggedIn){
       mainApi
       .getMovies()
       .then(res => {
-         const result = res.map((item) => {
-           item.id = item.movieId;
-           return item;
-         })
-        console.log(result);
+        const result = res.map((item) => {
+          item.id = item.movieId;
+          return item;
+        })
         setSavedMovies(result);
       })
       .catch(err=> console.log(err))
     }
-
  },[loggedIn])
 
  React.useEffect(()=>{
-  if(foundMovies){
-    setLoadMovies(()=> foundMovies.slice(0, num))
+  if(isFiltering){
+    setLoadMovies(()=> foundMovies.filter((item)=> item.duration < 40).slice(0, num));
+  } else {
+    setLoadMovies(()=> foundMovies.slice(0, num));
+
   }
- }, [foundMovies, num])
+ }, [isFiltering, foundMovies, num])
 
   React.useEffect(()=>{
     setIsBurgerMenuOpen(false);
@@ -93,7 +93,6 @@ function App() {
     setIsBurgerMenuOpen(false);
     setInfoRegister(false);
   }
-
 
   function onRegister(email, password, name){
     return mainApi
@@ -150,66 +149,78 @@ function App() {
         setLoadMovies([]);
         setNum(initialCount);
         setNotFoundMovie('');
-        setSearch('');
+        setSavedMovies([]);
+        setMovies([]);
         localStorage.clear();
       })
       .catch((err) => console.log(`Ошибка: ${err}. Не удалось выйти из приложения.`))
   }
 
   function searchMovies(search){
-    setIsLoading(true)
+    setIsLoading(true);
     if(!localStorage.getItem('movies')){
       return moviesApi
         .getMovies()
         .then((movies) => {
-          const resultmovies = movies.map((item)=> {
+          const resultMovies = movies.map((item)=> {
              item.image.url = `https://api.nomoreparties.co/${item.image.url}`;
              item.image.formats.thumbnail.url = `https://api.nomoreparties.co/${item.image.formats.thumbnail.url}`;
              if(savedMovies.some((i) => i.movieId === item.id)){
-              item.isSaved = true;
               item._id = (savedMovies.find((i) => i.movieId === item.id))._id;
-             } else {
-              item.isSaved = false;
              }
-            //  savedMovies.some((i) => i.movieId === item.id) ? item.isSaved = true : item.isSaved = false;
-            // if(savedMovies.find((i) => i.movieId === item.id)){
-            //   item._id = savedMovies.find((i) => i.movieId === item.id)._id;
-            // }
              return item;
           })
-          localStorage.setItem('movies', JSON.stringify(resultmovies));
-          console.log(resultmovies);
-          setMovies(resultmovies);
-          localStorage.setItem('search', search);
-          // setSearch(search)
+          localStorage.setItem('movies', JSON.stringify(resultMovies));
+          setMovies(resultMovies);
           found(search);
         })
         .catch((err)=> {
           if(err){
+            setIsLoading(false);
             setNotFoundMovie('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
-            setIsLoading(false)
           }
           console.log(`Ошибка: ${err}`);
         })
     } else {
-      localStorage.setItem('search', search);
-      // setSearch(search)
       found(search);
     }
   }
 
-  function found(search){
+  function resetFoundMovies(){
     setFoundMovies([]);
     setLoadMovies([]);
     setNum(initialCount);
-    const filteredMovies = movies.filter((movie) => {
-      return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())})
+  }
+
+  function found(search){
+    resetFoundMovies();
+    const filteredMovies = filterMovies(JSON.parse(localStorage.getItem('movies')), search);
     setFoundMovies(filteredMovies);
     setIsLoading(false);
     if(filteredMovies.length === 0){
       setNotFoundMovie('Ничего не найдено');
     } else {
       setNotFoundMovie('')}
+  }
+
+  function searchSavedMovies(search) {
+    const filteredMovies = filterMovies(savedMovies, search);
+    setSavedMovies(filteredMovies);
+  }
+
+  function filterMovies(movies, search) {
+    if(isFiltering){
+      const filteredMovies = movies.filter((movie) => {
+        return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())
+      })
+      return filteredMovies.filter((i)=> i.duration < 40);
+    } else {
+      const filteredMovies = movies.filter((movie) => {
+        return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())
+      })
+      return filteredMovies;
+    } 
+    
   }
 
   function handleChangeCheckbox() {
@@ -220,20 +231,18 @@ function App() {
     return mainApi
     .like(likedMovie)
     .then(res=>{
-      const result = foundMovies.map((foundMovie)=>{
-        if(foundMovie.id === res.movieId){
-          foundMovie._id = res._id;
-          foundMovie.isSaved = true;
-          return foundMovie;
+      const result = movies.map((movie)=>{
+        if(movie.id === res.movieId){
+          movie._id = res._id;
+          return movie;
         } else {
-          return foundMovie;
+          return movie;
+          
         }
       })
+      res.id = res.movieId;
       setFoundMovies(result);
       setSavedMovies([...savedMovies, res])
-      // setFoundMovies((movies) => 
-      // movies.map((m) => (m.id === res.movieId ? res : m)))
-      // getMovies();
     })
     .catch(err => console.log(err))
   }
@@ -279,17 +288,6 @@ function App() {
     })
   }
 
-
-
-  // function getMovies(){
-  //   return mainApi
-  //     .getMovies()
-  //     .then(res => {
-  //       setSavedMovies([...savedMovies, res])
-  //     })
-  //     .catch(err=> console.log(err))
-  // }
-
   return ( 
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
@@ -314,34 +312,34 @@ function App() {
         />
         <Route 
           path="/movies" 
-          element={<ProtectedRouteElement 
-            component={Movies} 
-            loggedIn={loggedIn} 
-            loadMore={loadMore} 
+          element={
+          <ProtectedRouteElement 
+            component={Movies}
+            loggedIn={loggedIn}
             movies={loadMovies}
             foundMovies={foundMovies}
+            loadMore={loadMore} 
             searchMovies={searchMovies}
-            isFiltering = {isFiltering}
             handleChangeCheckbox={handleChangeCheckbox}
             isLoading={isLoading}
             notFoundMovie={notFoundMovie}
             saveMovie={saveMovie}
-            search={search}
-            setSearch={setSearch}
             deleteMovie={deleteMovie}
-          
-            />}
+            savedMovies={savedMovies}
+          />}
         />
         <Route
           path="/saved-movies" 
-          element={<ProtectedRouteElement 
-            component={SavedMovies} 
-            loggedIn={loggedIn} 
-             movies={savedMovies}
-             deleteMovie={deleteMovie}
-             isFiltering = {isFiltering}
-             handleChangeCheckbox={handleChangeCheckbox}
-             />}
+          element={
+          <ProtectedRouteElement 
+            component={SavedMovies}
+            loggedIn={loggedIn}
+            movies={isFiltering? savedMovies.filter((item)=> item.duration < 40): savedMovies}
+            searchSavedMovies={searchSavedMovies}
+            deleteMovie={deleteMovie}
+            handleChangeCheckbox={handleChangeCheckbox}
+            savedMovies={savedMovies}
+          />}
         />
         <Route 
           path="/profile" 
@@ -352,8 +350,12 @@ function App() {
             onUpdateUser={onUpdateUser}
             registerErrorMessage={registerErrorMessage}/>}
         />
-        <Route path="/404" element={<PageNotFound/>}/>
-        <Route path="*" element={<Navigate to="/404"/>}/>
+        <Route 
+          path="/404" 
+          element={<PageNotFound/>}/>
+        <Route 
+         path="*" 
+         element={<Navigate to="/404"/>}/>
       </Routes>
       {location.pathname === "/"|| location.pathname === "/movies"||location.pathname === "/saved-movies"?<Footer/> : null}
       <BurgerMenu 
