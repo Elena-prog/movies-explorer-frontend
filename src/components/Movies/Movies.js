@@ -18,7 +18,7 @@ export default function Movies({
     deleteMovie,
     savedMovies
 }){
-    const [search, setSearch] = React.useState(() => localStorage.getItem('search'));
+    const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
 
     function handleSearchMovies(search) {
         localStorage.setItem('search', search);
@@ -48,7 +48,6 @@ export default function Movies({
                             foundMovies={foundMovies} 
                             saveMovie={saveMovie} 
                             deleteMovie={deleteMovie} 
-                            isFiltering={isFiltering} 
                             savedMovies={savedMovies}
                             type="movies"/>
                         :

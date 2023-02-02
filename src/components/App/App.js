@@ -58,7 +58,7 @@ function App() {
   React.useEffect(()=>{
     localStorage.setItem('isFiltering', false);
     setIsFiltering(false);
-    if(loggedIn){
+    // if(loggedIn){
       mainApi
       .getMovies()
       .then(res => {
@@ -69,15 +69,14 @@ function App() {
         setSavedMovies(result);
       })
       .catch(err=> console.log(err))
-    }
- },[loggedIn])
+    // }
+ },[])
 
  React.useEffect(()=>{
   if(isFiltering){
     setLoadMovies(()=> foundMovies.filter((item)=> item.duration < 40).slice(0, num));
   } else {
     setLoadMovies(()=> foundMovies.slice(0, num));
-
   }
  }, [isFiltering, foundMovies, num])
 
@@ -209,35 +208,27 @@ function App() {
   }
 
   function filterMovies(movies, search) {
-    if(isFiltering){
-      const filteredMovies = movies.filter((movie) => {
-        return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())
-      })
-      return filteredMovies.filter((i)=> i.duration < 40);
-    } else {
-      const filteredMovies = movies.filter((movie) => {
-        return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())
-      })
-      return filteredMovies;
-    } 
-    
+    const filteredMovies = movies.filter((movie) => {
+      return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())
+    })
+    return filteredMovies;
   }
 
   function handleChangeCheckbox() {
     setIsFiltering(!isFiltering);
+    localStorage.setItem('isFiltering', !isFiltering);
   }
 
   function saveMovie(likedMovie){
     return mainApi
     .like(likedMovie)
     .then(res=>{
-      const result = movies.map((movie)=>{
+      const result = foundMovies.map((movie)=>{
         if(movie.id === res.movieId){
           movie._id = res._id;
           return movie;
         } else {
           return movie;
-          
         }
       })
       res.id = res.movieId;
@@ -317,7 +308,7 @@ function App() {
             component={Movies}
             loggedIn={loggedIn}
             movies={loadMovies}
-            foundMovies={foundMovies}
+            foundMovies={isFiltering? foundMovies.filter((item)=> item.duration < 40): foundMovies}
             loadMore={loadMore} 
             searchMovies={searchMovies}
             handleChangeCheckbox={handleChangeCheckbox}
@@ -325,6 +316,7 @@ function App() {
             notFoundMovie={notFoundMovie}
             saveMovie={saveMovie}
             deleteMovie={deleteMovie}
+            isFiltering={isFiltering}
             savedMovies={savedMovies}
           />}
         />
@@ -338,6 +330,7 @@ function App() {
             searchSavedMovies={searchSavedMovies}
             deleteMovie={deleteMovie}
             handleChangeCheckbox={handleChangeCheckbox}
+            isFiltering={isFiltering}
             savedMovies={savedMovies}
           />}
         />

@@ -4,7 +4,6 @@ import './MoviesCard.css';
 export default function MoviesCard({movie, type, saveMovie, deleteMovie, savedMovies}){
     let movieButtonClassName;
     let url;
-    console.log(savedMovies);
     const saved = savedMovies.some((i)=> i.movieId === movie.id);
     if(type === "movies"){
         movieButtonClassName = (
@@ -30,9 +29,9 @@ export default function MoviesCard({movie, type, saveMovie, deleteMovie, savedMo
     return(
         <li className="element">
             <button className={movieButtonClassName} onClick={handleClick} aria-label="Сохранить."></button>
-            <div className="element__container-image">
+            <a className="element__container-image" href={movie.trailerLink}  rel="noreferrer" target="_blank">
                 <img src={url} alt={movie.nameRu} className="element__image"/>
-            </div>
+            </a>
             <div className="element__caption">
                 <h3 className="element__title">{movie.nameRU}</h3>
                 <div className="element__duration">{`${Math.floor(movie.duration/60)}ч ${movie.duration % 60}м`}</div>

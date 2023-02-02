@@ -36,7 +36,6 @@ export default function SavedMovies({
                 movies={movies} 
                 deleteMovie={deleteMovie} 
                 type="saved-movies" 
-                isFiltering = {isFiltering}
                 savedMovies={savedMovies}/>
             : 
             ''}

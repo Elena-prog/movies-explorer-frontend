@@ -2,8 +2,7 @@ import React from "react";
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function MoviesCardList({ movies, loadMore, type, foundMovies, saveMovie, deleteMovie, isFiltering, savedMovies}){ 
-
+export default function MoviesCardList({ movies, loadMore, type, foundMovies, saveMovie, deleteMovie, savedMovies}){ 
     return(
         <section className="elements">
             <ul className="elements__group">
