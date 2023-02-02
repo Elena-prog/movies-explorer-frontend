@@ -41,20 +41,8 @@
     opacity: .8;
 }
 
-.elements__more-btn_type_movies {
-    display: block;
-}
-
-.elements__more-btn_type_saved-movies {
-    display: none;
-}
-
 .elements__more-btn_hidden {
     display: none;
-}
-
-.elements__more-btn_visible{
-    display: block;
 }
 
 @media screen and (max-width: 768px) {

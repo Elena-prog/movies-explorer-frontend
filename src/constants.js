@@ -1,4 +1,3 @@
-export const baseUrl = 'https://api.nomoreparties.co/';
 export const REGISTER_ERROR = 'При регистрации пользователя произошла ошибка';
 export const PROFILE_ERROR = 'При обновлении профиля произошла ошибка';
 export const EMAIL_EXIST_ERROR = 'Пользователь с таким email уже существует';

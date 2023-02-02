@@ -2,33 +2,25 @@ import React from "react";
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-export default function MoviesCardList({ movies, loadMore, type, foundMovies, saveMovie, deleteMovie, savedMovies}){ 
+export default function MoviesCardList({ movies, loadMore, type, foundMovies, onCardLike, onCardDelete, savedMovies}){ 
     return(
         <section className="elements">
             <ul className="elements__group">
-                {movies.map( (movie) => {
-                    let uniqueKey;
-                    if(type === "movies"){
-                        uniqueKey = movie.id;
-                    }
-                    if(type === "saved-movies"){
-                        uniqueKey = movie.movieId;
-                    }
+                {movies.map((movie) => {
                     return(<MoviesCard
-                        key={uniqueKey} 
+                        key={movie.id} 
                         movie={movie}
                         type={type}
-                        saveMovie={saveMovie}
-                        deleteMovie={deleteMovie}
+                        onCardLike={onCardLike}
+                        onCardDelete={onCardDelete}
                         savedMovies={savedMovies}
                     />   
                     )})
                 }
             </ul>
-            {type === 'movies'? 
-            <button onClick={loadMore} className={`elements__more-btn elements__more-btn_type_${type} ${ foundMovies.length === movies.length?'elements__more-btn_hidden':'elements__more-btn_visible'}`}>Ещё</button>
-            :
-            ''}
+            {type === 'movies'&& 
+            <button onClick={loadMore} className={`elements__more-btn ${ foundMovies.length === movies.length?'elements__more-btn_hidden':''}`}>Ещё</button>
+            }
         </section> 
     )
 }

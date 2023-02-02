@@ -15,7 +15,7 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import {baseUrl,
+import {
   EMAIL_EXIST_ERROR, 
   PROFILE_ERROR, 
   NOT_FOUND_ERROR, 
@@ -81,7 +81,7 @@ function App() {
 
  React.useEffect(()=>{
   if(isFiltering){
-    setLoadMovies(()=> foundMovies.filter((item)=> item.duration < 40).slice(0, num));
+    setLoadMovies(()=> foundMovies.filter((item)=> item.duration <= 40).slice(0, num));
   } else {
     setLoadMovies(()=> foundMovies.slice(0, num));
   }
@@ -162,7 +162,7 @@ function App() {
       .catch((err) => console.log(`Ошибка: ${err}. Не удалось выйти из приложения.`))
   }
 
-  function searchMovies(search){
+  function handleSearchMovies(search){
     setIsLoading(true);
     if(!localStorage.getItem('movies')){
       return moviesApi
@@ -209,7 +209,7 @@ function App() {
       setNotFoundMovie('')}
   }
 
-  function searchSavedMovies(search) {
+  function handleSearchSavedMovies(search) {
     const filteredMovies = filterMovies(savedMovies, search);
     setSavedMovies(filteredMovies);
   }
@@ -226,7 +226,7 @@ function App() {
     localStorage.setItem('isFiltering', !isFiltering);
   }
 
-  function saveMovie(likedMovie){
+  function handleCardLike(likedMovie){
     return mainApi
     .like(likedMovie)
     .then(res=>{
@@ -245,7 +245,7 @@ function App() {
     .catch(err => console.log(err))
   }
 
-  function deleteMovie(movie) {
+  function handleCardDelete(movie) {
     return mainApi
     .deleteMovie(movie._id)
     .then((res)=> {
@@ -315,14 +315,14 @@ function App() {
             component={Movies}
             loggedIn={loggedIn}
             movies={loadMovies}
-            foundMovies={isFiltering? foundMovies.filter((item)=> item.duration < 40): foundMovies}
+            foundMovies={isFiltering? foundMovies.filter((item)=> item.duration <= 40): foundMovies}
             loadMore={loadMore} 
-            searchMovies={searchMovies}
-            handleChangeCheckbox={handleChangeCheckbox}
+            onSearchMovies={handleSearchMovies}
+            onChangeCheckbox={handleChangeCheckbox}
             isLoading={isLoading}
             notFoundMovie={notFoundMovie}
-            saveMovie={saveMovie}
-            deleteMovie={deleteMovie}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
             isFiltering={isFiltering}
             savedMovies={savedMovies}
           />}
@@ -333,12 +333,11 @@ function App() {
           <ProtectedRouteElement 
             component={SavedMovies}
             loggedIn={loggedIn}
-            movies={isFiltering? savedMovies.filter((item)=> item.duration < 40): savedMovies}
-            searchSavedMovies={searchSavedMovies}
-            deleteMovie={deleteMovie}
-            handleChangeCheckbox={handleChangeCheckbox}
+            movies={isFiltering? savedMovies.filter((item)=> item.duration <= 40): savedMovies}
+            onSearchSavedMovies={handleSearchSavedMovies}
+            onCardDelete={handleCardDelete}
+            onChangeCheckbox={handleChangeCheckbox}
             isFiltering={isFiltering}
-            savedMovies={savedMovies}
           />}
         />
         <Route 

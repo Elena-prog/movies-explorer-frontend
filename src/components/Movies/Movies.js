@@ -9,13 +9,13 @@ export default function Movies({
     movies, 
     loadMore, 
     foundMovies, 
-    searchMovies, 
+    onSearchMovies, 
     isFiltering, 
-    handleChangeCheckbox, 
+    onChangeCheckbox, 
     isLoading, 
     notFoundMovie, 
-    saveMovie, 
-    deleteMovie,
+    onCardLike, 
+    onCardDelete,
     savedMovies
 }){
     const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
@@ -23,7 +23,7 @@ export default function Movies({
     function handleSearchMovies(search) {
         localStorage.setItem('search', search);
         setSearch(search);
-        searchMovies(search);
+        onSearchMovies(search);
     }
 
     return(
@@ -35,7 +35,7 @@ export default function Movies({
             />
             <FilterCheckbox 
                 isFiltering={isFiltering} 
-                handleChangeCheckbox={handleChangeCheckbox}
+                onChangeCheckbox={onChangeCheckbox}
             />
             {isLoading?
                 <Preloader/>
@@ -46,8 +46,8 @@ export default function Movies({
                             movies={movies} 
                             loadMore={loadMore} 
                             foundMovies={foundMovies} 
-                            saveMovie={saveMovie} 
-                            deleteMovie={deleteMovie} 
+                            onCardLike={onCardLike} 
+                            onCardDelete={onCardDelete} 
                             savedMovies={savedMovies}
                             type="movies"/>
                         :
