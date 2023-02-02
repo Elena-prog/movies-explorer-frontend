@@ -1,26 +1,21 @@
 import React from "react";
 import './SearchForm.css';
 
-export default function SearchForm({
-    handleSearchMovies, 
-    search, 
-    setSearch
-}){
-    const [showError, setShowError] = React.useState(false);
-
+export default function SearchForm({ handleSearchMovies, search, setSearch }){
+    const [errorMessage, setErrorMessage] = React.useState('');
 
     function handleChange(e) {
         setSearch(e.target.value);
-        setShowError(false);
+        setErrorMessage('');
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if(search !== ''){
             handleSearchMovies(search);
-            setShowError(false);
+            setErrorMessage('');
         } else {
-            setShowError(true);
+            setErrorMessage('Нужно ввести ключевое слово');
         }
     }
 
@@ -43,7 +38,7 @@ export default function SearchForm({
                 />
                 <button type="submit" className="search-form__btn">Поиск</button>
             </form>
-            <span className={`search-form__error ${showError && 'search-form__error_visible'}`}>Нужно ввести ключевое слово</span>
+            <span className={`search-form__error`}>{errorMessage}</span>
         </div>
 
     )

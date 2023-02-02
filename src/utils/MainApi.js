@@ -5,8 +5,6 @@ class MainApi {
 
     _getResponseData(res) {
         if (!res.ok) {
-            // if(res.status === 400) {throw new Error('Не передано одно из полей')}
-            // if(res.status === 401) {throw new Error(`пользователь с таким email не найден`)}
             return Promise.reject(`${res.status}`); 
         }
         return res.json();

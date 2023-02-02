@@ -15,6 +15,13 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {baseUrl,
+  EMAIL_EXIST_ERROR, 
+  PROFILE_ERROR, 
+  NOT_FOUND_ERROR, 
+  SERVER_ERROR, 
+  REGISTER_ERROR, 
+  EMAIL_OR_PASSWORD_ERROR} from '../../constants';
 import './App.css';
 
 function App() {
@@ -58,7 +65,7 @@ function App() {
   React.useEffect(()=>{
     localStorage.setItem('isFiltering', false);
     setIsFiltering(false);
-    // if(loggedIn){
+    if(loggedIn){
       mainApi
       .getMovies()
       .then(res => {
@@ -69,8 +76,8 @@ function App() {
         setSavedMovies(result);
       })
       .catch(err=> console.log(err))
-    // }
- },[])
+    }
+ },[loggedIn])
 
  React.useEffect(()=>{
   if(isFiltering){
@@ -109,9 +116,9 @@ function App() {
       })
       .catch((err) => {
         if (err === '409') {
-          setRegisterErrorMessage('Пользователь с таким email уже существует');
+          setRegisterErrorMessage(EMAIL_EXIST_ERROR);
         } else {
-          setRegisterErrorMessage('При регистрации пользователя произошла ошибка');
+          setRegisterErrorMessage(REGISTER_ERROR);
         }
         console.log(`Ошибка : ${err}`);
       })
@@ -130,9 +137,9 @@ function App() {
       })
       .catch((err) => {
         if (err === '401') {
-          setRegisterErrorMessage('Вы ввели неправильный логин или пароль. ');
+          setRegisterErrorMessage(EMAIL_OR_PASSWORD_ERROR);
         } else {
-          setRegisterErrorMessage('При регистрации пользователя произошла ошибка');
+          setRegisterErrorMessage(REGISTER_ERROR);
         }
         console.log(`Ошибка : ${err}`);
       })
@@ -176,7 +183,7 @@ function App() {
         .catch((err)=> {
           if(err){
             setIsLoading(false);
-            setNotFoundMovie('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+            setNotFoundMovie(SERVER_ERROR);
           }
           console.log(`Ошибка: ${err}`);
         })
@@ -197,7 +204,7 @@ function App() {
     setFoundMovies(filteredMovies);
     setIsLoading(false);
     if(filteredMovies.length === 0){
-      setNotFoundMovie('Ничего не найдено');
+      setNotFoundMovie(NOT_FOUND_ERROR);
     } else {
       setNotFoundMovie('')}
   }
@@ -271,9 +278,9 @@ function App() {
     })
     .catch((err) => {
       if (err === '409') {
-        setRegisterErrorMessage('Пользователь с таким email уже существует.');
+        setRegisterErrorMessage(EMAIL_EXIST_ERROR);
       } else {
-        setRegisterErrorMessage('При обновлении профиля произошла ошибка');
+        setRegisterErrorMessage(PROFILE_ERROR);
       }
       console.log(`Ошибка : ${err}`);
     })
@@ -287,20 +294,20 @@ function App() {
         <Route 
           path="/" 
           element={<Main/>}/>
-        <Route 
+        {!loggedIn && <Route 
           path="/signup" 
           element={<Register
             onRegister={onRegister}
             registerErrorMessage={registerErrorMessage}
           />}
-        />
-        <Route 
+        />}
+        {!loggedIn && <Route 
           path="/signin" 
           element={<Login 
             onLogin={onLogin} 
             registerErrorMessage={registerErrorMessage}
           />}
-        />
+        />}
         <Route 
           path="/movies" 
           element={

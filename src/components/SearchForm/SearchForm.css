@@ -70,11 +70,6 @@
     line-height: 1.2;
     color: #EE3465;
     width: 100%;
-    visibility: hidden;
-}
-
-.search-form__error_visible{
-    visibility: visible;
 }
 
 @media screen and (max-width: 450px) {
