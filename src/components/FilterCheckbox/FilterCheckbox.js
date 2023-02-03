@@ -12,7 +12,7 @@ export default function FilterCheckbox({isFiltering, onChangeCheckbox}){
                 id="checkbox" 
                 className="filter__checkbox"
                 name="checkbox"
-                checked={isFiltering}
+                checked={Boolean(isFiltering)}
                 onChange={onChangeCheckbox}
             />
             <span className="filter__slider"></span>

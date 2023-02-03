@@ -34,13 +34,12 @@ function App() {
   const [infoRegister, setInfoRegister] = React.useState({status: false, message: "", icon: ""});
   const [isFiltering, setIsFiltering] = React.useState(()=> localStorage.getItem('isFiltering'));
   const [isLoading, setIsLoading] = React.useState(false);
-  const [notFoundMovie, setNotFoundMovie] = React.useState('');
+  const [notFoundMovieError, setNotFoundMovieError] = React.useState('');
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [registerErrorMessage, setRegisterErrorMessage] = React.useState('');
-
-  let location = useLocation();
   const navigate = useNavigate();
   const widthScreen = window.innerWidth;
+  let location = useLocation();
   let initialCount; 
   let cardsInRow;
   
@@ -63,9 +62,9 @@ function App() {
   };
 
   React.useEffect(()=>{
-    localStorage.setItem('isFiltering', false);
-    setIsFiltering(false);
     if(loggedIn){
+      localStorage.setItem('isFiltering', false);
+      setIsFiltering(false);
       mainApi
       .getMovies()
       .then(res => {
@@ -154,7 +153,7 @@ function App() {
         setFoundMovies([]);
         setLoadMovies([]);
         setNum(initialCount);
-        setNotFoundMovie('');
+        setNotFoundMovieError('');
         setSavedMovies([]);
         setMovies([]);
         localStorage.clear();
@@ -178,18 +177,29 @@ function App() {
           })
           localStorage.setItem('movies', JSON.stringify(resultMovies));
           setMovies(resultMovies);
-          found(search);
+          findMovies(search);
         })
         .catch((err)=> {
           if(err){
             setIsLoading(false);
-            setNotFoundMovie(SERVER_ERROR);
+            setNotFoundMovieError(SERVER_ERROR);
           }
           console.log(`Ошибка: ${err}`);
         })
     } else {
-      found(search);
+      findMovies(search);
     }
+  }
+
+  function findMovies(search){
+    resetFoundMovies();
+    const filteredMovies = filterMovies(JSON.parse(localStorage.getItem('movies')), search);
+    setFoundMovies(filteredMovies);
+    setIsLoading(false);
+    if(filteredMovies.length === 0){
+      setNotFoundMovieError(NOT_FOUND_ERROR);
+    } else {
+      setNotFoundMovieError('')}
   }
 
   function resetFoundMovies(){
@@ -198,24 +208,13 @@ function App() {
     setNum(initialCount);
   }
 
-  function found(search){
-    resetFoundMovies();
-    const filteredMovies = filterMovies(JSON.parse(localStorage.getItem('movies')), search);
-    setFoundMovies(filteredMovies);
-    setIsLoading(false);
-    if(filteredMovies.length === 0){
-      setNotFoundMovie(NOT_FOUND_ERROR);
-    } else {
-      setNotFoundMovie('')}
-  }
-
   function handleSearchSavedMovies(search) {
     const filteredMovies = filterMovies(savedMovies, search);
     setSavedMovies(filteredMovies);
   }
 
-  function filterMovies(movies, search) {
-    const filteredMovies = movies.filter((movie) => {
+  function filterMovies(allMovies, search) {
+    const filteredMovies = allMovies.filter((movie) => {
       return movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase())
     })
     return filteredMovies;
@@ -249,21 +248,12 @@ function App() {
     return mainApi
     .deleteMovie(movie._id)
     .then((res)=> {
-      const result = foundMovies.map((foundMovie)=>{
-        if(foundMovie.id === res.movieId){
-          foundMovie.isSaved = false;
-          return foundMovie;
-        } else {
-          return foundMovie;
-        }
-      })
-      setFoundMovies(result);
       setSavedMovies((savedmovies)=> savedmovies.filter((m)=> m._id !== res._id))
     })
     .catch(err=> console.log(err))
   }
 
-  function onUpdateUser(name, email){
+  function handleUpdateUser(name, email){
     return mainApi
     .updateUser(name, email)
     .then((userData) =>{
@@ -320,7 +310,7 @@ function App() {
             onSearchMovies={handleSearchMovies}
             onChangeCheckbox={handleChangeCheckbox}
             isLoading={isLoading}
-            notFoundMovie={notFoundMovie}
+            notFoundMovieError={notFoundMovieError}
             onCardLike={handleCardLike}
             onCardDelete={handleCardDelete}
             isFiltering={isFiltering}
@@ -346,7 +336,7 @@ function App() {
             component={Profile} 
             loggedIn={loggedIn}
             onLogout={onLogout}
-            onUpdateUser={onUpdateUser}
+            onUpdateUser={handleUpdateUser}
             registerErrorMessage={registerErrorMessage}/>}
         />
         <Route 

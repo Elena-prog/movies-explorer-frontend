@@ -13,7 +13,7 @@ export default function Movies({
     isFiltering, 
     onChangeCheckbox, 
     isLoading, 
-    notFoundMovie, 
+    notFoundMovieError, 
     onCardLike, 
     onCardDelete,
     savedMovies
@@ -51,7 +51,7 @@ export default function Movies({
                             savedMovies={savedMovies}
                             type="movies"/>
                         :
-                        <span className="movies__error">{notFoundMovie}</span>
+                        <span className="movies__error">{notFoundMovieError}</span>
                     }
                 </>
             }
