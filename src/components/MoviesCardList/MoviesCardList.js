@@ -18,7 +18,8 @@ export default function MoviesCardList({ movies, loadMore, type, foundMovies, on
                     )})
                 }
             </ul>
-            {type === 'movies'&& 
+            {type === 'movies'
+            && 
             <button onClick={loadMore} className={`elements__more-btn ${ foundMovies.length === movies.length?'elements__more-btn_hidden':''}`}>Ещё</button>
             }
         </section> 

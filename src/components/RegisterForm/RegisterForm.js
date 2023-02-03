@@ -2,8 +2,18 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import './RegisterForm.css';
 
-export default function RegisterForm({ title, children, submitButton, questionMessage, optionButton, onSubmit, formValid, link, registerErrorMessage }){
-    const navigate =useNavigate()
+export default function RegisterForm({ 
+    title, 
+    children, 
+    submitButton, 
+    questionMessage, 
+    optionButton, 
+    onSubmit, 
+    formValid, 
+    link, 
+    registerErrorMessage 
+}){
+    const navigate = useNavigate()
     function handleClik () {
         navigate(link);
     }   

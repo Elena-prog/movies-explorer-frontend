@@ -1,7 +1,17 @@
 import React from "react";
 import './Input.css';
 
-export default function Input({ id, label, name, type, value,placeholder, onChange, errorMessage, fieldValid }){
+export default function Input({ 
+    id, 
+    label, 
+    name, 
+    type, 
+    value,
+    placeholder, 
+    onChange, 
+    errorMessage, 
+    fieldValid 
+}){
     return(
         <li className="input">
             <label 
