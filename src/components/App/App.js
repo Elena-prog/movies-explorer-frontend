@@ -111,7 +111,7 @@ function App() {
           })
         }
         setRegisterErrorMessage('');
-        navigate("/signin");
+        onLogin(email, password);
       })
       .catch((err) => {
         if (err === '409') {
