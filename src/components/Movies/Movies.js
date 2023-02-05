@@ -21,11 +21,8 @@ export default function Movies({
     search
 
 }){
-    // const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
-
     function handleSearchMovies(search) {
         localStorage.setItem('search', search);
-        // setSearch(search);
         onSearchMovies(search);
     }
 
