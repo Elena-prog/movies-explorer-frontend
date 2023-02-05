@@ -8,6 +8,7 @@ export default function Login({onLogin, registerErrorMessage}){
     const [emailValid, setEmailValid] = React.useState(false);
     const [passwordValid, setPasswordValid] = React.useState(false);
     const [formValid, setFormValid] = React.useState(false);
+    const [readOnly, setReadOnly] = React.useState(false);
 
     function validateField(fieldName, value){
         if(fieldName === 'email') {
@@ -41,8 +42,10 @@ export default function Login({onLogin, registerErrorMessage}){
     }
 
     function handleSubmit(e){
+        setReadOnly(true);
         e.preventDefault();
-        onLogin(values.email, values.password);
+        onLogin(values.email, values.password)
+        .finally(()=> setReadOnly(false))
     }
 
     return(
@@ -67,6 +70,7 @@ export default function Login({onLogin, registerErrorMessage}){
                     errorMessage={values.email ==="" ? "" :"Невалидный email"}
                     onChange={handleChange}
                     fieldValid = {emailValid}
+                    readOnly = {readOnly}
                 /> 
                 <Input
                     name="password"
@@ -77,6 +81,7 @@ export default function Login({onLogin, registerErrorMessage}){
                     errorMessage={values.password ==="" ? "" :"Пароль должен содержать от 2 до 8 символов"}
                     onChange={handleChange}
                     fieldValid = {passwordValid}
+                    readOnly = {readOnly}
                 /> 
             </RegisterForm>
         </section>

@@ -11,7 +11,7 @@ export default function Input({
     onChange, 
     errorMessage, 
     fieldValid,
-    ref
+    readOnly
 }){
     return(
         <li className="input">
@@ -28,6 +28,7 @@ export default function Input({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                readOnly={readOnly}
             />
             <span 
                 className={`input__error ${fieldValid? '': 'input__error_visible'}`}>

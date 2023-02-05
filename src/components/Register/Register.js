@@ -9,6 +9,7 @@ export default function Register({onRegister, registerErrorMessage}){
     const [emailValid, setEmailValid] = React.useState(false);
     const [passwordValid, setPasswordValid] = React.useState(false);
     const [formValid, setFormValid] = React.useState(false);
+    const [readOnly, setReadOnly] = React.useState(false);
 
     function validateField(fieldName, value){
 
@@ -49,8 +50,10 @@ export default function Register({onRegister, registerErrorMessage}){
     }
 
     function handleSubmit(e){
+        setReadOnly(true);
         e.preventDefault();
-        onRegister(values.email, values.password, values.name);
+        onRegister(values.email, values.password, values.name)
+        .finally(()=> setReadOnly(false))
     }
 
     return(
@@ -76,6 +79,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     onChange={handleChange}
                     required
                     fieldValid = {nameValid}
+                    readOnly = {readOnly}
                 />
                 <Input
                     name="email"
@@ -87,6 +91,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     onChange={handleChange}
                     required
                     fieldValid = {emailValid}
+                    readOnly = {readOnly}
                 /> 
                 <Input
                     name="password"
@@ -98,6 +103,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     onChange={handleChange}
                     required
                     fieldValid = {passwordValid}
+                    readOnly = {readOnly}
                 /> 
             </RegisterForm>
         </section>
