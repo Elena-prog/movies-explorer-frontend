@@ -344,12 +344,9 @@ function App() {
           <ProtectedRouteElement 
             component={SavedMovies}
             loggedIn={loggedIn}
-            // movies={isFiltering? savedMovies.filter((item)=> item.duration <= 40): savedMovies}
             movies={foundSavedMovies}
             onSearchSavedMovies={handleSearchSavedMovies}
             onCardDelete={handleCardDelete}
-            // onChangeCheckbox={handleChangeCheckbox}
-            // isFiltering={isFiltering}
           />}
         />
         <Route 
