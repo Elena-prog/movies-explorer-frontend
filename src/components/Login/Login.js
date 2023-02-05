@@ -5,9 +5,9 @@ import Input from "../Input/Input";
 
 export default function Login({onLogin, registerErrorMessage}){
     const [values, setValues] = React.useState({email:"", password:""});
-    const [emailValid, setEmailValid] = React.useState(true);
-    const [passwordValid, setPasswordValid] = React.useState(true);
-    const [formValid, setFormValid] = React.useState(true);
+    const [emailValid, setEmailValid] = React.useState(false);
+    const [passwordValid, setPasswordValid] = React.useState(false);
+    const [formValid, setFormValid] = React.useState(false);
 
     function validateField(fieldName, value){
         if(fieldName === 'email') {
@@ -64,7 +64,7 @@ export default function Login({onLogin, registerErrorMessage}){
                     type="email"
                     value={values.email}
                     label="E-mail"
-                    errorMessage="Невалидный email"
+                    errorMessage={values.email ==="" ? "" :"Невалидный email"}
                     onChange={handleChange}
                     fieldValid = {emailValid}
                 /> 
@@ -74,7 +74,7 @@ export default function Login({onLogin, registerErrorMessage}){
                     type="password"
                     value={values.password}
                     label="password"
-                    errorMessage="Пароль должен содержать от 2 до 8 символов"
+                    errorMessage={values.password ==="" ? "" :"Пароль должен содержать от 2 до 8 символов"}
                     onChange={handleChange}
                     fieldValid = {passwordValid}
                 /> 

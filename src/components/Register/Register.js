@@ -15,7 +15,6 @@ export default function Register({onRegister, registerErrorMessage}){
         if(fieldName === 'name') {
             if(value.length < 2 || value.length > 30 || !value.match(/^[А-ЯA-ZёәіңғүұқөһӘІҢҒҮҰҚӨҺ\s-]+$/umi)) {
                 setNameValid(false);
-            } else if (value.length === 0 ){
             } else  {
                 setNameValid(true);
             }
@@ -23,7 +22,6 @@ export default function Register({onRegister, registerErrorMessage}){
         if(fieldName === 'email') {
             if(!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
                 setEmailValid(false);
-            } else if (value.length === 0 ){
             } else {
                 setEmailValid(true);
             }
@@ -31,8 +29,7 @@ export default function Register({onRegister, registerErrorMessage}){
         if(fieldName === 'password') {
             if(value.length < 2 || value.length > 8) {
                 setPasswordValid(false);
-            } else if (value.length === 0 ){
-            }else {
+            } else {
                 setPasswordValid(true);
             }
         }

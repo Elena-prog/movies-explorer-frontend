@@ -89,6 +89,7 @@ function App() {
   React.useEffect(()=>{
     setIsBurgerMenuOpen(false);
     setFoundSavedMovies(savedMovies);
+    setRegisterErrorMessage('');
   }, [location, savedMovies])
 
   function openPopup(){
