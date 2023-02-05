@@ -7,16 +7,21 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 export default function SavedMovies({ 
     movies, 
     onCardDelete, 
-    isFiltering, 
-    onChangeCheckbox, 
+    // isFiltering, 
+    // onChangeCheckbox, 
     onSearchSavedMovies
 }){
 
     const [search, setSearch] = React.useState('');
+    const [isFiltering, setIsFiltering] = React.useState(false)
 
     function handleSearchMovies(search) {
         onSearchSavedMovies(search);
         setSearch(search)
+    }
+
+    function onChangeCheckbox() {
+        setIsFiltering(!isFiltering);
     }
 
     return(
@@ -32,7 +37,7 @@ export default function SavedMovies({
             />
             {movies?
             <MoviesCardList 
-                movies={movies} 
+                movies={isFiltering? movies.filter((item)=> item.duration <= 40): movies} 
                 onCardDelete={onCardDelete} 
                 type="saved-movies"/>
             : 

@@ -16,13 +16,16 @@ export default function Movies({
     notFoundMovieError, 
     onCardLike, 
     onCardDelete,
-    savedMovies
+    savedMovies,
+    setSearch,
+    search
+
 }){
-    const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
+    // const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
 
     function handleSearchMovies(search) {
         localStorage.setItem('search', search);
-        setSearch(search);
+        // setSearch(search);
         onSearchMovies(search);
     }
 

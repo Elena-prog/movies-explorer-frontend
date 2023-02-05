@@ -27,12 +27,13 @@ import './App.css';
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(()=> localStorage.getItem('loggedIn'));
   const [movies, setMovies] = React.useState(()=> JSON.parse(localStorage.getItem('movies')));
+  const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(()=> JSON.parse(localStorage.getItem("currentUser")));
-  const [foundMovies, setFoundMovies] = React.useState([]);
+  const [foundMovies, setFoundMovies] = React.useState(()=> JSON.parse(localStorage.getItem('foundMovies')) || []);
   const [loadMovies, setLoadMovies] = React.useState([]);
   const [infoRegister, setInfoRegister] = React.useState({status: false, message: "", icon: ""});
-  const [isFiltering, setIsFiltering] = React.useState(()=> localStorage.getItem('isFiltering'));
+  const [isFiltering, setIsFiltering] = React.useState(()=> localStorage.getItem('isFiltering') === "true"? true: false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [notFoundMovieError, setNotFoundMovieError] = React.useState('');
   const [savedMovies, setSavedMovies] = React.useState([]);
@@ -63,8 +64,7 @@ function App() {
 
   React.useEffect(()=>{
     if(loggedIn){
-      localStorage.setItem('isFiltering', false);
-      setIsFiltering(false);
+      console.log('dfgdf');
       mainApi
       .getMovies()
       .then(res => {
@@ -156,6 +156,8 @@ function App() {
         setNotFoundMovieError('');
         setSavedMovies([]);
         setMovies([]);
+        setSearch('');
+        setIsFiltering(false);
         localStorage.clear();
       })
       .catch((err) => console.log(`Ошибка: ${err}. Не удалось выйти из приложения.`))
@@ -177,6 +179,8 @@ function App() {
           })
           localStorage.setItem('movies', JSON.stringify(resultMovies));
           setMovies(resultMovies);
+          localStorage.setItem('search', search);
+          setSearch(search);
           findMovies(search);
         })
         .catch((err)=> {
@@ -187,6 +191,7 @@ function App() {
           console.log(`Ошибка: ${err}`);
         })
     } else {
+      localStorage.setItem('search', search);
       findMovies(search);
     }
   }
@@ -194,6 +199,7 @@ function App() {
   function findMovies(search){
     resetFoundMovies();
     const filteredMovies = filterMovies(JSON.parse(localStorage.getItem('movies')), search);
+    localStorage.setItem('foundMovies', JSON.stringify(filteredMovies));
     setFoundMovies(filteredMovies);
     setIsLoading(false);
     if(filteredMovies.length === 0){
@@ -220,8 +226,8 @@ function App() {
     return filteredMovies;
   }
 
-  function handleChangeCheckbox() {
-    setIsFiltering(!isFiltering);
+  function handleChangeCheckbox(e) {
+    setIsFiltering(!isFiltering)
     localStorage.setItem('isFiltering', !isFiltering);
   }
 
@@ -315,6 +321,8 @@ function App() {
             onCardDelete={handleCardDelete}
             isFiltering={isFiltering}
             savedMovies={savedMovies}
+            search={search} 
+            setSearch={setSearch} 
           />}
         />
         <Route
@@ -323,11 +331,12 @@ function App() {
           <ProtectedRouteElement 
             component={SavedMovies}
             loggedIn={loggedIn}
-            movies={isFiltering? savedMovies.filter((item)=> item.duration <= 40): savedMovies}
+            // movies={isFiltering? savedMovies.filter((item)=> item.duration <= 40): savedMovies}
+            movies={savedMovies}
             onSearchSavedMovies={handleSearchSavedMovies}
             onCardDelete={handleCardDelete}
-            onChangeCheckbox={handleChangeCheckbox}
-            isFiltering={isFiltering}
+            // onChangeCheckbox={handleChangeCheckbox}
+            // isFiltering={isFiltering}
           />}
         />
         <Route 
