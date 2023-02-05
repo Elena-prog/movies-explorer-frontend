@@ -6,7 +6,7 @@ export default function PageNotFound() {
     const navigate = useNavigate();
 
     function goBack(){
-        navigate(-1);
+        navigate(-3 );
     }
 
     return(
@@ -15,7 +15,7 @@ export default function PageNotFound() {
                 <h3 className="not-found__title">404</h3>
                 <p className="not-found__subtitle">Страница не найдена</p>
             </div>
-                <button className="not-found__back-button" onClick={goBack}>Назад</button>
+                <button type="button" className="not-found__back-button" onClick={goBack}>Назад</button>
         </section>
     )
 }
