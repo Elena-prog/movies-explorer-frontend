@@ -37,6 +37,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [notFoundMovieError, setNotFoundMovieError] = React.useState('');
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
   const [registerErrorMessage, setRegisterErrorMessage] = React.useState('');
   const navigate = useNavigate();
   const widthScreen = window.innerWidth;
@@ -63,8 +64,8 @@ function App() {
   };
 
   React.useEffect(()=>{
+    console.log('hhhh');
     if(loggedIn){
-      console.log('dfgdf');
       mainApi
       .getMovies()
       .then(res => {
@@ -88,7 +89,8 @@ function App() {
 
   React.useEffect(()=>{
     setIsBurgerMenuOpen(false);
-  }, [location])
+    setFoundSavedMovies(savedMovies);
+  }, [location, savedMovies])
 
   function openPopup(){
     setIsBurgerMenuOpen(true);
@@ -216,7 +218,7 @@ function App() {
 
   function handleSearchSavedMovies(search) {
     const filteredMovies = filterMovies(savedMovies, search);
-    setSavedMovies(filteredMovies);
+    setFoundSavedMovies(filteredMovies);
   }
 
   function filterMovies(allMovies, search) {
@@ -332,7 +334,7 @@ function App() {
             component={SavedMovies}
             loggedIn={loggedIn}
             // movies={isFiltering? savedMovies.filter((item)=> item.duration <= 40): savedMovies}
-            movies={savedMovies}
+            movies={foundSavedMovies}
             onSearchSavedMovies={handleSearchSavedMovies}
             onCardDelete={handleCardDelete}
             // onChangeCheckbox={handleChangeCheckbox}

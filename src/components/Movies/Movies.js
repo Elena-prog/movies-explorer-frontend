@@ -34,7 +34,8 @@ export default function Movies({
             <SearchForm 
                 handleSearchMovies={handleSearchMovies} 
                 search={search} 
-                setSearch={setSearch} 
+                setSearch={setSearch}
+                type="movies"
             />
             <FilterCheckbox 
                 isFiltering={isFiltering} 

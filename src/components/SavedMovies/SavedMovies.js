@@ -12,12 +12,12 @@ export default function SavedMovies({
     onSearchSavedMovies
 }){
 
-    const [search, setSearch] = React.useState('');
+    // const [search, setSearch] = React.useState('');
     const [isFiltering, setIsFiltering] = React.useState(false)
 
     function handleSearchMovies(search) {
         onSearchSavedMovies(search);
-        setSearch(search)
+        // setSearch(search)
     }
 
     function onChangeCheckbox() {
@@ -28,8 +28,9 @@ export default function SavedMovies({
         <section className="saved-movies">
             <SearchForm 
                 handleSearchMovies={handleSearchMovies} 
-                search={search} 
-                setSearch={setSearch}
+                // search={search} 
+                // setSearch={setSearch}
+                type="saved-movies"
                 />
             <FilterCheckbox 
                 isFiltering = {isFiltering} 

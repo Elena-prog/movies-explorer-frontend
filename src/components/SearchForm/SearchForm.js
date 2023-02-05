@@ -1,18 +1,27 @@
 import React from "react";
 import './SearchForm.css';
 
-export default function SearchForm({ handleSearchMovies, search, setSearch }){
+export default function SearchForm({ handleSearchMovies, search, setSearch, type }){
     const [errorMessage, setErrorMessage] = React.useState('');
+    const searchString = React.useRef('');
 
     function handleChange(e) {
-        setSearch(e.target.value);
+        if(type === "movies"){
+            setSearch(e.target.value);
+        }
+        
         setErrorMessage('');
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         if(search !== ''){
-            handleSearchMovies(search);
+            if(type === "movies"){
+                handleSearchMovies(search);
+            } else {
+                handleSearchMovies(searchString.current.value)
+            }
+            
             setErrorMessage('');
         } else {
             setErrorMessage('Нужно ввести ключевое слово');
@@ -35,6 +44,7 @@ export default function SearchForm({ handleSearchMovies, search, setSearch }){
                 placeholder="Фильм"
                 value={search}
                 onChange={handleChange}
+                ref = {searchString}
                 />
                 <button type="submit" className="search-form__btn">Поиск</button>
             </form>
