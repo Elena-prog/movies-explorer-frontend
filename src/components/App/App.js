@@ -64,7 +64,6 @@ function App() {
   };
 
   React.useEffect(()=>{
-    console.log('hhhh');
     if(loggedIn){
       mainApi
       .getMovies()

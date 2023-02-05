@@ -10,7 +10,8 @@ export default function Input({
     placeholder, 
     onChange, 
     errorMessage, 
-    fieldValid 
+    fieldValid,
+    ref
 }){
     return(
         <li className="input">

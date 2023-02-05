@@ -5,25 +5,25 @@ import Input from "../Input/Input";
 
 export default function Register({onRegister, registerErrorMessage}){
     const [values, setValues] = React.useState({name:"", email:"", password:""});
-
-
-    const [nameValid, setNameValid] = React.useState(true);
-    const [emailValid, setEmailValid] = React.useState(true);
-    const [passwordValid, setPasswordValid] = React.useState(true);
-    const [formValid, setFormValid] = React.useState(true)
-
+    const [nameValid, setNameValid] = React.useState(false);
+    const [emailValid, setEmailValid] = React.useState(false);
+    const [passwordValid, setPasswordValid] = React.useState(false);
+    const [formValid, setFormValid] = React.useState(false);
 
     function validateField(fieldName, value){
+
         if(fieldName === 'name') {
             if(value.length < 2 || value.length > 30 || !value.match(/^[А-ЯA-ZёәіңғүұқөһӘІҢҒҮҰҚӨҺ\s-]+$/umi)) {
                 setNameValid(false);
-            } else {
+            } else if (value.length === 0 ){
+            } else  {
                 setNameValid(true);
-            }   
+            }
         }
         if(fieldName === 'email') {
             if(!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
                 setEmailValid(false);
+            } else if (value.length === 0 ){
             } else {
                 setEmailValid(true);
             }
@@ -31,7 +31,8 @@ export default function Register({onRegister, registerErrorMessage}){
         if(fieldName === 'password') {
             if(value.length < 2 || value.length > 8) {
                 setPasswordValid(false);
-            } else {
+            } else if (value.length === 0 ){
+            }else {
                 setPasswordValid(true);
             }
         }
@@ -66,6 +67,7 @@ export default function Register({onRegister, registerErrorMessage}){
                 formValid={formValid}
                 link="/signin"
                 registerErrorMessage={registerErrorMessage}
+                
             >
                 <Input
                     name="name"
@@ -73,7 +75,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     type="text"
                     value={values.name}
                     label="Имя"
-                    errorMessage="Имя должно быть от 2 до 30 символов и содержать только латиницу, кириллицу, пробел или дефис"
+                    errorMessage={values.name ==="" ? "" : "Имя должно быть от 2 до 30 символов и содержать только латиницу, кириллицу, пробел или дефис"}
                     onChange={handleChange}
                     required
                     fieldValid = {nameValid}
@@ -84,7 +86,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     type="email"
                     value={values.email}
                     label="E-mail"
-                    errorMessage="Невалидный email"
+                    errorMessage={values.email ==="" ? "" :"Невалидный email"}
                     onChange={handleChange}
                     required
                     fieldValid = {emailValid}
@@ -95,7 +97,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     type="password"
                     value={values.password}
                     label="password"
-                    errorMessage="Пароль должен содержать от 2 до 8 символов"
+                    errorMessage={values.password ==="" ? "" :"Пароль должен содержать от 2 до 8 символов"}
                     onChange={handleChange}
                     required
                     fieldValid = {passwordValid}
