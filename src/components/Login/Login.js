@@ -2,6 +2,7 @@ import React from "react";
 import './Login.css';
 import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
+import { INPUT_EMAIL_ERROR, INPUT_PASSWORD_ERROR } from "../../constants"
 
 export default function Login({onLogin, registerErrorMessage}){
     const [values, setValues] = React.useState({email:"", password:""});
@@ -67,7 +68,7 @@ export default function Login({onLogin, registerErrorMessage}){
                     type="email"
                     value={values.email}
                     label="E-mail"
-                    errorMessage={values.email ==="" ? "" :"Невалидный email"}
+                    errorMessage={values.email ==="" ? "" : INPUT_EMAIL_ERROR}
                     onChange={handleChange}
                     fieldValid = {emailValid}
                     readOnly = {readOnly}
@@ -78,7 +79,7 @@ export default function Login({onLogin, registerErrorMessage}){
                     type="password"
                     value={values.password}
                     label="password"
-                    errorMessage={values.password ==="" ? "" :"Пароль должен содержать от 2 до 8 символов"}
+                    errorMessage={values.password ==="" ? "" : INPUT_PASSWORD_ERROR}
                     onChange={handleChange}
                     fieldValid = {passwordValid}
                     readOnly = {readOnly}

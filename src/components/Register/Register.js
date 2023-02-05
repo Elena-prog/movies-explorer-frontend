@@ -2,6 +2,7 @@ import React from "react";
 import "./Register.css";
 import RegisterForm from "../RegisterForm/RegisterForm";
 import Input from "../Input/Input";
+import {INPUT_NAME_ERROR, INPUT_EMAIL_ERROR, INPUT_PASSWORD_ERROR} from "../../constants"
 
 export default function Register({onRegister, registerErrorMessage}){
     const [values, setValues] = React.useState({name:"", email:"", password:""});
@@ -75,7 +76,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     type="text"
                     value={values.name}
                     label="Имя"
-                    errorMessage={values.name ==="" ? "" : "Имя должно быть от 2 до 30 символов и содержать только латиницу, кириллицу, пробел или дефис"}
+                    errorMessage={values.name ==="" ? "" : INPUT_NAME_ERROR}
                     onChange={handleChange}
                     required
                     fieldValid = {nameValid}
@@ -87,7 +88,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     type="email"
                     value={values.email}
                     label="E-mail"
-                    errorMessage={values.email ==="" ? "" :"Невалидный email"}
+                    errorMessage={values.email ==="" ? "" : INPUT_EMAIL_ERROR}
                     onChange={handleChange}
                     required
                     fieldValid = {emailValid}
@@ -99,7 +100,7 @@ export default function Register({onRegister, registerErrorMessage}){
                     type="password"
                     value={values.password}
                     label="password"
-                    errorMessage={values.password ==="" ? "" :"Пароль должен содержать от 2 до 8 символов"}
+                    errorMessage={values.password ==="" ? "" : INPUT_PASSWORD_ERROR}
                     onChange={handleChange}
                     required
                     fieldValid = {passwordValid}

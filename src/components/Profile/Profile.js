@@ -1,6 +1,7 @@
 import React from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import './Profile.css';
+import {INPUT_NAME_ERROR, INPUT_EMAIL_ERROR, INPUT_PASSWORD_ERROR} from "../../constants"
 
 export default function Profile({onLogout, onUpdateUser, registerErrorMessage}){
     const currentUser = React.useContext(CurrentUserContext);
@@ -80,7 +81,7 @@ export default function Profile({onLogout, onUpdateUser, registerErrorMessage}){
                         </div>
                         <span 
                             className={`profile__error ${nameValid? '': 'profile__error_visible'}`}>
-                            Имя должно быть от 2 до 30 символов и содержать только латиницу, кириллицу, пробел или дефис
+                            {INPUT_NAME_ERROR}
                         </span>
                     </li>
                     <li className="profile__input-item">
@@ -101,7 +102,7 @@ export default function Profile({onLogout, onUpdateUser, registerErrorMessage}){
                         </div>
                         <span 
                             className={`profile__error ${emailValid? '': 'profile__error_visible'}`}>
-                            Невалидный email
+                            {INPUT_EMAIL_ERROR}
                         </span>
                     </li>
                 </ul>

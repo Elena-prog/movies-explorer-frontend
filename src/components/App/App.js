@@ -21,7 +21,18 @@ import {
   NOT_FOUND_ERROR, 
   SERVER_ERROR, 
   REGISTER_ERROR, 
-  EMAIL_OR_PASSWORD_ERROR} from '../../constants';
+  EMAIL_OR_PASSWORD_ERROR,
+  SUCCES_REGISTRATION,
+  SUCCES_UPDATE_PROFILE,
+  SINGOUT_ERROR,
+  INITIAL_COUNT_CARDS_DESKTOP,
+  INITIAL_COUNT_CARDS_TABLET,
+  INITIAL_COUNT_CARDS_MOBILE,
+  CARDS_IN_ROW_DESKTOP,
+  CARDS_IN_ROW_TABLET,
+  CARDS_IN_ROW_MOBILE,
+  SHORTS_MOVIE_DURATION
+} from '../../constants';
 import './App.css';
 
 function App() {
@@ -46,14 +57,14 @@ function App() {
   let cardsInRow;
   
   if(widthScreen > 1100){
-    initialCount = 12;
-    cardsInRow = 3;
+    initialCount = INITIAL_COUNT_CARDS_DESKTOP;
+    cardsInRow = CARDS_IN_ROW_DESKTOP;
   } else if(widthScreen < 1100 && widthScreen > 690){
-    initialCount = 8;
-    cardsInRow = 2;
+    initialCount = INITIAL_COUNT_CARDS_TABLET;
+    cardsInRow = CARDS_IN_ROW_TABLET;
   } else if(widthScreen < 690){
-    initialCount = 5;
-    cardsInRow = 2;
+    initialCount = INITIAL_COUNT_CARDS_MOBILE;
+    cardsInRow = CARDS_IN_ROW_MOBILE;
   }
 
   const [num ,setNum] = React.useState(initialCount);
@@ -80,7 +91,7 @@ function App() {
 
  React.useEffect(()=>{
   if(isFiltering){
-    setLoadMovies(()=> foundMovies.filter((item)=> item.duration <= 40).slice(0, num));
+    setLoadMovies(()=> foundMovies.filter((item)=> item.duration <= SHORTS_MOVIE_DURATION).slice(0, num));
   } else {
     setLoadMovies(()=> foundMovies.slice(0, num));
   }
@@ -108,7 +119,7 @@ function App() {
         if(userData){
           setInfoRegister({
             status: true,
-            message: "Вы успешно зарегистрировались!",
+            message: SUCCES_REGISTRATION,
             icon: "succes"
           })
         }
@@ -162,7 +173,7 @@ function App() {
         setIsFiltering(false);
         localStorage.clear();
       })
-      .catch((err) => console.log(`Ошибка: ${err}. Не удалось выйти из приложения.`))
+      .catch((err) => console.log(`Ошибка: ${err}. ${SINGOUT_ERROR}`))
   }
 
   function handleSearchMovies(search){
@@ -269,7 +280,7 @@ function App() {
       localStorage.setItem("currentUser", JSON.stringify(userData));
       setInfoRegister({
         status: true,
-        message: "Профиль обновлен!",
+        message: SUCCES_UPDATE_PROFILE,
         icon: "succes"
       })
       setRegisterErrorMessage('');
@@ -313,7 +324,7 @@ function App() {
             component={Movies}
             loggedIn={loggedIn}
             movies={loadMovies}
-            foundMovies={isFiltering? foundMovies.filter((item)=> item.duration <= 40): foundMovies}
+            foundMovies={isFiltering? foundMovies.filter((item)=> item.duration <= SHORTS_MOVIE_DURATION): foundMovies}
             loadMore={loadMore} 
             onSearchMovies={handleSearchMovies}
             onChangeCheckbox={handleChangeCheckbox}

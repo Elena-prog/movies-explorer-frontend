@@ -1,5 +1,6 @@
 import React from "react";
 import './SearchForm.css';
+import { SEARCH_ERROR } from "../../constants"
 
 export default function SearchForm({ handleSearchMovies, search, setSearch, type }){
     const [errorMessage, setErrorMessage] = React.useState('');
@@ -9,7 +10,6 @@ export default function SearchForm({ handleSearchMovies, search, setSearch, type
         if(type === "movies"){
             setSearch(e.target.value);
         }
-        
         setErrorMessage('');
     }
 
@@ -18,13 +18,13 @@ export default function SearchForm({ handleSearchMovies, search, setSearch, type
         if(search !== ''){
             if(type === "movies"){
                 handleSearchMovies(search);
-            } else {
+            } else if (type === "saved-movies") {
                 handleSearchMovies(searchString.current.value)
             }
-            
+            handleSearchMovies(search);
             setErrorMessage('');
         } else {
-            setErrorMessage('Нужно ввести ключевое слово');
+            setErrorMessage(SEARCH_ERROR);
         }
     }
 
