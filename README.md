@@ -20,27 +20,28 @@
 
 ---
 
+### Инструкция по развёртыванию и системные требования
+
+- Скачать или склонировать репозиторий
+- Установить зависимости при помощи npm - npm i
+- Запустить в production режиме - npm run start
+
+---
+
 ### Технологический стек:
 
-1. frontend
-
-   - React
-   - HTML
-   - CSS
-   - БЭМ
-
-2. backend
-   - Node.js
-   - Express
-   - MongoDB
+- React
+- HTML
+- CSS
+- БЭМ
 
 Деплой проекта на виртуальный сервер (Nginx, pm2)
 
 ---
 
-### Ссылки:
+### Ссылка на сайт:
 
-ссылка на сайт: https://diploma.elena.nomoredomains.club/
+https://diploma.elena.nomoredomains.club/
 
 ссылка на макет https://drive.google.com/file/d/18GjV7XOT_sgj7oOQnxv2fHisgeLqZtq3/view?usp=sharing
 
