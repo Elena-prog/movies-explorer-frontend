@@ -4,6 +4,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .form__title{
     margin: 0;
     font-weight: 500;
@@ -28,6 +29,15 @@
     gap: 16px;
 }
 
+.form__error{
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    color: #FF004C;
+    width: 100%;
+    text-align: center;
+}
+
 .form__submit-button{
     color: #FFFFFF;
     cursor: pointer;
@@ -43,6 +53,16 @@
 .form__submit-button:hover{
     opacity: .8;
 }
+
+.form__submit-button[disabled] {
+    background-color:#8B8B8B;
+}
+
+.form__submit-button:hover[disabled] {
+    opacity: 1;
+    cursor: default;
+}
+
 
 .form__option{
     display: flex;

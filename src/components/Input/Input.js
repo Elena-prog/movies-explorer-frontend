@@ -1,7 +1,18 @@
 import React from "react";
 import './Input.css';
 
-export default function Input({ id, label, name, type, value,placeholder, onChange, errorMessage }){
+export default function Input({ 
+    id, 
+    label, 
+    name, 
+    type, 
+    value,
+    placeholder, 
+    onChange, 
+    errorMessage, 
+    fieldValid,
+    readOnly
+}){
     return(
         <li className="input">
             <label 
@@ -17,9 +28,10 @@ export default function Input({ id, label, name, type, value,placeholder, onChan
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
+                readOnly={readOnly}
             />
             <span 
-                className="input__error">
+                className={`input__error ${fieldValid? '': 'input__error_visible'}`}>
                 {errorMessage}
             </span>
         </li>
