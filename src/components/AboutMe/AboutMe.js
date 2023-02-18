@@ -1,7 +1,7 @@
 import React from "react";
 import "./AboutMe.css";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import student from "../../images/student2.jpg";
+import student from "../../images/student3.jpg";
 
 export default function AboutMe(){
     return(
