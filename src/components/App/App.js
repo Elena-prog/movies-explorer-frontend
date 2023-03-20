@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -14,7 +15,7 @@ import InfoTooltip from '../InfoToolTip/InfoToolTip';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRouteElement from '../ProtectedRoute/ProtectedRoute';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {setCurrentUser} from '../../store/actionCreators/actionCreators'
 import {
   EMAIL_EXIST_ERROR, 
   PROFILE_ERROR, 
@@ -37,10 +38,9 @@ import './App.css';
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(()=> localStorage.getItem('loggedIn'));
-  const [movies, setMovies] = React.useState(()=> JSON.parse(localStorage.getItem('movies')));
+  const [, setMovies] = React.useState(()=> JSON.parse(localStorage.getItem('movies')));
   const [search, setSearch] = React.useState(() => localStorage.getItem('search')|| '');
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState(()=> JSON.parse(localStorage.getItem("currentUser")));
   const [foundMovies, setFoundMovies] = React.useState(()=> JSON.parse(localStorage.getItem('foundMovies')) || []);
   const [loadMovies, setLoadMovies] = React.useState([]);
   const [infoRegister, setInfoRegister] = React.useState({status: false, message: "", icon: ""});
@@ -55,6 +55,8 @@ function App() {
   let location = useLocation();
   let initialCount; 
   let cardsInRow;
+
+  const dispatch = useDispatch();
   
   if(widthScreen > 1100){
     initialCount = INITIAL_COUNT_CARDS_DESKTOP;
@@ -88,6 +90,16 @@ function App() {
       .catch(err=> console.log(err))
     }
  },[loggedIn])
+
+ React.useEffect(()=>{
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      closeAllPopups(); 
+    }
+  }
+  document.addEventListener('keydown', handleEscClose);
+  return () => document.addEventListener('keydown', handleEscClose);
+ },[])
 
  React.useEffect(()=>{
   if(isFiltering){
@@ -141,8 +153,8 @@ function App() {
       .login(email, password)
       .then((userData) => {
         setLoggedIn(true);
-        setCurrentUser(userData);
         localStorage.setItem("currentUser", JSON.stringify(userData))
+        dispatch(setCurrentUser(userData));
         localStorage.setItem("loggedIn", true);
         setRegisterErrorMessage('');
         navigate("/movies");        
@@ -161,7 +173,7 @@ function App() {
     return mainApi
       .logout()
       .then(res => {
-        setCurrentUser(null);
+        dispatch(setCurrentUser(null))
         setLoggedIn(false);
         setFoundMovies([]);
         setLoadMovies([]);
@@ -276,8 +288,8 @@ function App() {
     return mainApi
     .updateUser(name, email)
     .then((userData) =>{
-      setCurrentUser(userData);
       localStorage.setItem("currentUser", JSON.stringify(userData));
+      dispatch(setCurrentUser(userData))
       setInfoRegister({
         status: true,
         message: SUCCES_UPDATE_PROFILE,
@@ -297,7 +309,6 @@ function App() {
 
   return ( 
     <div className="app">
-      <CurrentUserContext.Provider value={currentUser}>
       {location.pathname !== "/404"?<Header loggedIn={loggedIn}  openPopup={openPopup}/> : null}
       <Routes>
         <Route 
@@ -373,7 +384,6 @@ function App() {
       <InfoTooltip 
         onClose={closeAllPopups} 
         infoRegister={infoRegister} />
-      </CurrentUserContext.Provider>
     </div>
   );
 }

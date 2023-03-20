@@ -1,10 +1,10 @@
 import React from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import './Profile.css';
-import {INPUT_NAME_ERROR, INPUT_EMAIL_ERROR, INPUT_PASSWORD_ERROR} from "../../constants"
+import { connect } from 'react-redux';
 
-export default function Profile({onLogout, onUpdateUser, registerErrorMessage}){
-    const currentUser = React.useContext(CurrentUserContext);
+import './Profile.css';
+import {INPUT_NAME_ERROR, INPUT_EMAIL_ERROR} from "../../constants"
+
+const Profile = ({onLogout, onUpdateUser, registerErrorMessage, currentUser}) => {
     const [values, setValues] = React.useState({name: currentUser.name, email:currentUser.email});
 
     const [nameValid, setNameValid] = React.useState(true);
@@ -115,3 +115,7 @@ export default function Profile({onLogout, onUpdateUser, registerErrorMessage}){
         </section>
     )
 }
+
+const mapStateToProps = (state) => ({currentUser: state.user})
+
+export default connect(mapStateToProps)(Profile);
