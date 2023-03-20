@@ -3,7 +3,7 @@ import './InfoToolTip.css';
 
 export default function InfoTooltip({ onClose, infoRegister }) {
   return (
-    <div className={`popup ${infoRegister.status && "popup_opened"}`}>
+    <div onClick={onClose} className={`popup ${infoRegister.status && "popup_opened"}`}>
       <div className="popup__container">
         <button
           onClick={onClose}

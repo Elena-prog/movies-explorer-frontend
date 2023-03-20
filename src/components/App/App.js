@@ -92,6 +92,16 @@ function App() {
  },[loggedIn])
 
  React.useEffect(()=>{
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      closeAllPopups(); 
+    }
+  }
+  document.addEventListener('keydown', handleEscClose);
+  return () => document.addEventListener('keydown', handleEscClose);
+ },[])
+
+ React.useEffect(()=>{
   if(isFiltering){
     setLoadMovies(()=> foundMovies.filter((item)=> item.duration <= SHORTS_MOVIE_DURATION).slice(0, num));
   } else {
