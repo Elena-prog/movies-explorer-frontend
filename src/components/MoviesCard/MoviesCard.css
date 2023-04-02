@@ -100,6 +100,16 @@
     background-color: #2F2F2F;
 }
 
+.element__duration_theme_dark{
+    color: #8B8B8B;
+    background-color: #2F2F2F;
+}
+
+.element__duration_theme_light{
+    color: #000;
+    background-color: #F9F9F9;
+}
+
 @media screen and (max-width: 850px) {
     .element__image {
         min-height: 190px;

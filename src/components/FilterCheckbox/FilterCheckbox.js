@@ -5,11 +5,11 @@ export default function FilterCheckbox({isFiltering, onChangeCheckbox}){
     return(
     <div className="filter">
         <label  
-            htmlFor="checkbox" 
+            htmlFor='checkbox' 
             className="filter__label">
             <input 
                 type="checkbox" 
-                id="checkbox" 
+                id='checkbox' 
                 className="filter__checkbox"
                 name="checkbox"
                 checked={isFiltering}

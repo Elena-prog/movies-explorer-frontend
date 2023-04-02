@@ -22,7 +22,7 @@
     font-weight: 500;
     font-size: 24px;
     line-height: 1.2;
-    color: #FFFFFF;
+    color: inherit;
 }
 
 .profile__input-items{
@@ -51,7 +51,7 @@
     font-weight: 500;
     font-size: 11px;
     line-height: 13px;
-    color: #FFFFFF;
+    color: inherit;
     white-space: nowrap;
 }
 
@@ -59,18 +59,29 @@
     -webkit-appearance: none;
     width: 100%;
     font-weight: 400;
-    color: #FFFFFF;
+    color: inherit;
     outline: none;
     box-sizing: border-box;
-    -webkit-box-shadow: inset 0 0 0 50px #202020;
-    box-shadow: inset 0 0 0 50px #202020;
-    -webkit-text-fill-color: #FFFFFF;
     opacity: 1;
     border: none;
     overflow: hidden;
     font-size: 11px;
     line-height: 13px;
     text-align: right;
+}
+
+.profile__input_theme_dark{
+    color: #FFFFFF;
+    -webkit-box-shadow: inset 0 0 0 50px #202020;
+    box-shadow: inset 0 0 0 50px #202020;
+    -webkit-text-fill-color: inherit;
+}
+
+.profile__input_theme_light{
+    color: #000;
+    -webkit-box-shadow: inset 0 0 0 50px #FFF;
+    box-shadow: inset 0 0 0 50px #FFF;
+    -webkit-text-fill-color: inherit;
 }
 
 .profile__error{
@@ -107,7 +118,7 @@
 
 .profile__submit-button{
     font-weight: 400;
-    color: #FFFFFF;
+    color: inherit;
     background-color:transparent;
     cursor: pointer;
     width: 100%;

@@ -29,12 +29,20 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 1.25;
-    color: #FFFFFF;
+    color: inherit;
     border: solid 1.5px rgba(170, 170, 170, .2);
     align-self: center;
     margin: 76px 0 0;
     cursor: pointer;
     padding: 0;
+}
+
+.elements__more-btn_theme_dark{
+    background-color: transparent;
+}
+
+.elements__more-btn_theme_light{
+    background-color: #F9F9F9;
 }
 
 .elements__more-btn:hover{

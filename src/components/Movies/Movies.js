@@ -4,6 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import Preloader from "../Preloader/Preloader";
+import { useSelector } from "react-redux";
 
 export default function Movies({ 
     movies, 
@@ -21,13 +22,14 @@ export default function Movies({
     search
 
 }){
+    const theme = useSelector(state=>state.theme.value);
     function handleSearchMovies(search) {
         localStorage.setItem('search', search);
         onSearchMovies(search);
     }
 
     return(
-        <section className="movies">
+        <section className={`movies movies_theme_${theme}`}>
             <SearchForm 
                 handleSearchMovies={handleSearchMovies} 
                 search={search} 

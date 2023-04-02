@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import './MoviesCard.css';
 
 export default function MoviesCard({movie, type, onCardLike, onCardDelete, savedMovies}){
+    const theme = useSelector(state=> state.theme.value)
     let movieButtonClassName;
     let url;
     let isSaved;
@@ -37,7 +39,7 @@ export default function MoviesCard({movie, type, onCardLike, onCardDelete, saved
             </a>
             <div className="element__caption">
                 <h3 className="element__title">{movie.nameRU}</h3>
-                <div className="element__duration">{`${Math.floor(movie.duration/60)}ч ${movie.duration % 60}м`}</div>
+                <div className={`element__duration element__duration_theme_${theme}`}>{`${Math.floor(movie.duration/60)}ч ${movie.duration % 60}м`}</div>
             </div>
         </li>
     )

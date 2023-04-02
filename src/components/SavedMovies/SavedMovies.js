@@ -4,12 +4,14 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import {SHORTS_MOVIE_DURATION} from "../../constants";
+import { useSelector } from "react-redux";
 
 export default function SavedMovies({ 
     movies, 
     onCardDelete, 
     onSearchSavedMovies
 }){
+    const theme = useSelector(state=>state.theme.value);
     const [isFiltering, setIsFiltering] = React.useState(false)
 
     function handleSearchMovies(search) {
@@ -21,7 +23,7 @@ export default function SavedMovies({
     }
 
     return(
-        <section className="saved-movies">
+        <section className={`saved-movies saved-movies_theme_${theme}`}>
             <SearchForm 
                 handleSearchMovies={handleSearchMovies}
                 type="saved-movies"

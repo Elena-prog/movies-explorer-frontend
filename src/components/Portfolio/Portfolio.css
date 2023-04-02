@@ -35,11 +35,12 @@
     font-size: 30px;
     line-height: 1.66;
     letter-spacing: -0.04em;  
-    color: #FFFFFF;
+    color: inherit;
     margin: 0;
 }
 
 .portfolio__link{
+    color: inherit;
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -51,13 +52,20 @@
 }
 
 .portfolio__link-image{
-    background-image: url('../../images/portfolio-link.svg');
     background-repeat: no-repeat;
     background-position: center;
     width: 29px;
     height: 50px;
     background-color:transparent;
     border: none;
+}
+
+.portfolio__link-image_theme_dark{
+    background-image: url('../../images/portfolio-link.svg');
+}
+
+.portfolio__link-image_theme_light{
+    background-image: url('../../images/portfolio-link-theme-dark.svg');
 }
 
 @media screen and (max-width: 850px) {
