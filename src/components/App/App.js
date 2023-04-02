@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, useLocation, Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -57,6 +57,7 @@ function App() {
   let cardsInRow;
 
   const dispatch = useDispatch();
+  const theme = useSelector(state => state.theme.value)
   
   if(widthScreen > 1100){
     initialCount = INITIAL_COUNT_CARDS_DESKTOP;
@@ -308,82 +309,84 @@ function App() {
   }
 
   return ( 
-    <div className="app">
-      {location.pathname !== "/404"?<Header loggedIn={loggedIn}  openPopup={openPopup}/> : null}
-      <Routes>
-        <Route 
-          path="/" 
-          element={<Main/>}/>
-        {!loggedIn && <Route 
-          path="/signup" 
-          element={<Register
-            onRegister={onRegister}
-            registerErrorMessage={registerErrorMessage}
+    <div className={`app app_theme_${theme}`}>
+      <div className='page'>
+        {location.pathname !== "/404"?<Header loggedIn={loggedIn}  openPopup={openPopup}/> : null}
+        <Routes>
+          <Route 
+            path="/" 
+            element={<Main/>}/>
+          {!loggedIn && <Route 
+            path="/signup" 
+            element={<Register
+              onRegister={onRegister}
+              registerErrorMessage={registerErrorMessage}
+            />}
           />}
-        />}
-        {!loggedIn && <Route 
-          path="/signin" 
-          element={<Login 
-            onLogin={onLogin} 
-            registerErrorMessage={registerErrorMessage}
+          {!loggedIn && <Route 
+            path="/signin" 
+            element={<Login 
+              onLogin={onLogin} 
+              registerErrorMessage={registerErrorMessage}
+            />}
           />}
-        />}
-        <Route 
-          path="/movies" 
-          element={
-          <ProtectedRouteElement 
-            component={Movies}
-            loggedIn={loggedIn}
-            movies={loadMovies}
-            foundMovies={isFiltering? foundMovies.filter((item)=> item.duration <= SHORTS_MOVIE_DURATION): foundMovies}
-            loadMore={loadMore} 
-            onSearchMovies={handleSearchMovies}
-            onChangeCheckbox={handleChangeCheckbox}
-            isLoading={isLoading}
-            notFoundMovieError={notFoundMovieError}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            isFiltering={isFiltering}
-            savedMovies={savedMovies}
-            search={search} 
-            setSearch={setSearch} 
-          />}
+          <Route 
+            path="/movies" 
+            element={
+            <ProtectedRouteElement 
+              component={Movies}
+              loggedIn={loggedIn}
+              movies={loadMovies}
+              foundMovies={isFiltering? foundMovies.filter((item)=> item.duration <= SHORTS_MOVIE_DURATION): foundMovies}
+              loadMore={loadMore} 
+              onSearchMovies={handleSearchMovies}
+              onChangeCheckbox={handleChangeCheckbox}
+              isLoading={isLoading}
+              notFoundMovieError={notFoundMovieError}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              isFiltering={isFiltering}
+              savedMovies={savedMovies}
+              search={search} 
+              setSearch={setSearch} 
+            />}
+          />
+          <Route
+            path="/saved-movies" 
+            element={
+            <ProtectedRouteElement 
+              component={SavedMovies}
+              loggedIn={loggedIn}
+              movies={foundSavedMovies}
+              onSearchSavedMovies={handleSearchSavedMovies}
+              onCardDelete={handleCardDelete}
+            />}
+          />
+          <Route 
+            path="/profile" 
+            element={<ProtectedRouteElement 
+              component={Profile} 
+              loggedIn={loggedIn}
+              onLogout={onLogout}
+              onUpdateUser={handleUpdateUser}
+              registerErrorMessage={registerErrorMessage}/>}
+          />
+          <Route 
+            path="/404" 
+            element={<PageNotFound/>}/>
+          <Route 
+          path="*" 
+          element={<Navigate to="/404"/>}/>
+        </Routes>
+        {location.pathname === "/"|| location.pathname === "/movies"||location.pathname === "/saved-movies"?<Footer/> : null}
+        <BurgerMenu 
+          isOpen={isBurgerMenuOpen}
+          onClose={closeAllPopups}
         />
-        <Route
-          path="/saved-movies" 
-          element={
-          <ProtectedRouteElement 
-            component={SavedMovies}
-            loggedIn={loggedIn}
-            movies={foundSavedMovies}
-            onSearchSavedMovies={handleSearchSavedMovies}
-            onCardDelete={handleCardDelete}
-          />}
-        />
-        <Route 
-          path="/profile" 
-          element={<ProtectedRouteElement 
-            component={Profile} 
-            loggedIn={loggedIn}
-            onLogout={onLogout}
-            onUpdateUser={handleUpdateUser}
-            registerErrorMessage={registerErrorMessage}/>}
-        />
-        <Route 
-          path="/404" 
-          element={<PageNotFound/>}/>
-        <Route 
-         path="*" 
-         element={<Navigate to="/404"/>}/>
-      </Routes>
-      {location.pathname === "/"|| location.pathname === "/movies"||location.pathname === "/saved-movies"?<Footer/> : null}
-      <BurgerMenu 
-        isOpen={isBurgerMenuOpen}
-        onClose={closeAllPopups}
-      />
-      <InfoTooltip 
-        onClose={closeAllPopups} 
-        infoRegister={infoRegister} />
+        <InfoTooltip 
+          onClose={closeAllPopups} 
+          infoRegister={infoRegister} />
+        </div>
     </div>
   );
 }

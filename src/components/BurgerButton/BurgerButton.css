@@ -1,5 +1,4 @@
 .burger-button{
-    background-image: url('../../images/burger-menu.svg');
     width: 44px;
     height: 44px;
     display: none;
@@ -9,6 +8,14 @@
     padding: 0;
     cursor: pointer;
     outline: 0;
+}
+
+.burger-button_theme_dark{
+    background-image: url('../../images/burger-menu.svg');
+}
+
+.burger-button_theme_light{
+    background-image: url('../../images/burger-menu-theme-light.svg');
 }
 
 @media screen and (max-width: 850px){

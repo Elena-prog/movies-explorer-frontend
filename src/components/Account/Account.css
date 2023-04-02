@@ -6,7 +6,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
-    color: #FFFFFF;
+    color: inherit;
 }
 
 .account_active{
@@ -21,8 +21,15 @@
     background-image: url('../../images/account.svg');
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #313131;
     height: 30px;
     width: 26px;
     border-radius: 4px;
+}
+
+.account__logo_theme_dark{
+    background-color: #313131;
+}
+
+.account__logo_theme_light{
+    background-color: #A0A0A0;
 }

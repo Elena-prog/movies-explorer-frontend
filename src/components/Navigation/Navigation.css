@@ -8,7 +8,7 @@
     font-weight: 400;
     font-size: 13px;
     line-height: 1.38;
-    color: #FFFFFF;
+    color: inherit;
     text-decoration: none;
 }
 
@@ -18,6 +18,15 @@
 
 .navigation__link_type_main{
     display: none;
+}
+
+.navigation__theme{
+    display: none;
+}
+
+.navigation__theme-message{
+    margin-left: 10px;
+    color: inherit;
 }
 
 @media screen and (max-width: 850px) {
@@ -35,13 +44,24 @@
         line-height: 1.22;
     }
 
-    .navigation__link_active{
+    .navigation__link_active_dark{
         padding-bottom: 8px;
         border-bottom: 2px solid #FFFFFF;
     }
 
+    .navigation__link_active_light{
+        padding-bottom: 8px;
+        border-bottom: 2px solid #000;
+    }
+
+
     .navigation__link_type_main{
         display: block;
+    }
+
+    .navigation__theme{
+        display: flex;
+        cursor: pointer;
     }
 }
 

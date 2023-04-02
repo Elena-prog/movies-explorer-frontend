@@ -3,12 +3,20 @@
     box-sizing: border-box;
 }
 
-.header_theme_blue {
+.header_theme_blue-dark {
     background-color:#073042;
+}
+
+.header_theme_blue-light {
+    background-color:#FFFFFF;
 }
 
 .header_theme_dark {
     background-color:#202020;
+}
+
+.header_theme_light {
+    background-color:#FFFFFF;
 }
 
 .header_page_authorized{
@@ -37,6 +45,8 @@
 
 .header__container_position_right {
     justify-self: end;
+    display: flex;
+    gap: 20px
 }
 
 .header__links{
@@ -52,8 +62,12 @@
     line-height: 16px;
 }
 
-.header__link_type_register{
+.header__link_theme_dark{
     color: #FFFFFF;
+}
+
+.header__link_theme_light{
+    color: #000;
 }
 
 .header__link_type_login{

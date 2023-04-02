@@ -1,5 +1,4 @@
 .nav-tab{
-    background-color: #272727;
     height: 66px;
     display: flex;
     align-items: center;
@@ -7,12 +6,21 @@
     gap: 40px;
 }
 
+.nav-tab_theme_dark{
+    background-color: #272727;
+}
+
+.nav-tab_theme_light{
+    background-color: #F5F5F5;
+}
+
+
 .nav-tab__link{
     font-weight: 500;
     font-size: 13px;
     line-height: 1.23;
     text-decoration: underline;
-    color: #FFFFFF;
+    color: inherit;
 }
 
 .nav-tab__link:hover{

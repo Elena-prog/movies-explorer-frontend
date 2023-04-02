@@ -1,10 +1,11 @@
 import React from "react";
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import './Profile.css';
 import {INPUT_NAME_ERROR, INPUT_EMAIL_ERROR} from "../../constants"
 
 const Profile = ({onLogout, onUpdateUser, registerErrorMessage, currentUser}) => {
+    const theme = useSelector(state=>state.theme.value)
     const [values, setValues] = React.useState({name: currentUser.name, email:currentUser.email});
 
     const [nameValid, setNameValid] = React.useState(true);
@@ -71,7 +72,7 @@ const Profile = ({onLogout, onUpdateUser, registerErrorMessage, currentUser}) =>
                                 Имя
                             </label>
                             <input
-                                className="profile__input"
+                                className={`profile__input profile__input_theme_${theme}`}
                                 name="name"
                                 id="name"
                                 type="text"
@@ -92,7 +93,7 @@ const Profile = ({onLogout, onUpdateUser, registerErrorMessage, currentUser}) =>
                                 E-mail
                             </label>
                             <input
-                                className="profile__input"
+                                className={`profile__input profile__input_theme_${theme}`}
                                 name="email"
                                 id="email"
                                 type="email"

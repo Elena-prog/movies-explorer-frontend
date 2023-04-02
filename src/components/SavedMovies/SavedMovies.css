@@ -1,12 +1,19 @@
 .saved-movies{
     box-sizing:border-box;
     padding: 70px 70px 160px;
-    background-color: #202020;
     flex: 1;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     width: 100%;
+}
+
+.saved-movies_theme_dark{
+    background-color: #202020;
+}
+
+.saved-movies_theme_light{
+    background-color: #FFFFFF;
 }
 
 @media screen and (max-width: 850px) {
